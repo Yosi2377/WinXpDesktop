@@ -273,6 +273,13 @@ function attachIcon(icon){
       createWindow(app);
     }
   });
+  icon.addEventListener('contextmenu', function(e){
+    e.preventDefault();
+    const url = prompt('Enter new icon URL:', this.querySelector('img').src);
+    if(url){
+      this.querySelector('img').src = url;
+    }
+  });
 }
 
 document.querySelectorAll('.icon').forEach(attachIcon);
@@ -312,13 +319,15 @@ addAppButton.addEventListener('click',function(){
   if(!title) return;
   const content=prompt('Enter HTML content for the app:','<div style="padding:20px">New App</div>');
   if(content===null) return;
+  const iconUrl=prompt('Enter icon URL:','https://cdn-icons-png.flaticon.com/512/888/888879.png');
+  if(iconUrl===null) return;
   apps[id]={title,content};
   const icon=document.createElement('div');
   icon.className='icon';
   icon.dataset.app=id;
   icon.style.top='20px';
   icon.style.left=(20+document.querySelectorAll(".icon").length*80)+'px';
-  icon.innerHTML=`<img src="https://cdn-icons-png.flaticon.com/512/888/888879.png" alt="${title}"><div class="icon-label">${title}</div>`;
+  icon.innerHTML=`<img src="${iconUrl}" alt="${title}"><div class="icon-label">${title}</div>`;
   document.getElementById('desktop').appendChild(icon);
   attachIcon(icon);
 });
