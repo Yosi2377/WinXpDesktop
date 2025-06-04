@@ -8,3 +8,4 @@ This project simulates a basic Windows XP desktop environment in the browser.
 - Start menu and taskbar
 - Ability to add custom apps
 - Global context menu accessible anywhere via right-click or the **Menu** button
+- Option to set the default window size using the context menu

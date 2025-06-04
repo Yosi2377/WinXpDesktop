@@ -143,15 +143,17 @@
 };
 
 let windowZIndex = 1000;
+let defaultWindowWidth = 800;
+let defaultWindowHeight = 600;
 
-function createWindow(app){
+function createWindow(app, width = defaultWindowWidth, height = defaultWindowHeight){
   const {title,content}=apps[app];
   const window=document.createElement('div');
   window.className='window';
   window.style.top='50px';
   window.style.left='50px';
-  window.style.width='800px';
-  window.style.height='600px';
+  window.style.width=width+'px';
+  window.style.height=height+'px';
   window.style.zIndex = ++windowZIndex;
   window.innerHTML=`
     <div class="window-header">
@@ -340,4 +342,4 @@ function updateClock(){
 }
 
 setInterval(updateClock,1000);
-updateClock();const contextMenu=document.getElementById("custom-menu");const menuButton=document.getElementById("menu-button");document.addEventListener("contextmenu",function(e){e.preventDefault();contextMenu.style.left=e.pageX+"px";contextMenu.style.top=e.pageY+"px";contextMenu.style.display="block";});document.addEventListener("click",function(e){if(!contextMenu.contains(e.target)&&e.target!==menuButton){contextMenu.style.display="none";}});menuButton.addEventListener("click",function(){const r=this.getBoundingClientRect();contextMenu.style.left=r.left+"px";contextMenu.style.top=r.bottom+"px";contextMenu.style.display="block";});document.getElementById("menu-refresh").addEventListener("click",function(){location.reload();});document.getElementById("menu-top").addEventListener("click",function(){contextMenu.classList.toggle("top");});</script><div id="custom-menu" class="context-menu"><ul><li id="menu-refresh">Refresh</li><li id="menu-top">Toggle On Top</li></ul></div><button id="menu-button" class="open-menu-button">Menu</button></body></html>
+updateClock();const contextMenu=document.getElementById("custom-menu");const menuButton=document.getElementById("menu-button");document.addEventListener("contextmenu",function(e){e.preventDefault();contextMenu.style.left=e.pageX+"px";contextMenu.style.top=e.pageY+"px";contextMenu.style.display="block";});document.addEventListener("click",function(e){if(!contextMenu.contains(e.target)&&e.target!==menuButton){contextMenu.style.display="none";}});menuButton.addEventListener("click",function(){const r=this.getBoundingClientRect();contextMenu.style.left=r.left+"px";contextMenu.style.top=r.bottom+"px";contextMenu.style.display="block";});document.getElementById("menu-refresh").addEventListener("click",function(){location.reload();});document.getElementById("menu-top").addEventListener("click",function(){contextMenu.classList.toggle("top");});document.getElementById("menu-size").addEventListener("click",function(){const w=prompt("Default window width:",defaultWindowWidth);if(w!==null){const h=prompt("Default window height:",defaultWindowHeight);if(h!==null){const nw=parseInt(w);const nh=parseInt(h);if(!isNaN(nw)&&nw>0)defaultWindowWidth=nw;if(!isNaN(nh)&&nh>0)defaultWindowHeight=nh;}}contextMenu.style.display="none";});</script><div id="custom-menu" class="context-menu"><ul><li id="menu-refresh">Refresh</li><li id="menu-top">Toggle On Top</li><li id="menu-size">Set Window Size...</li></ul></div><button id="menu-button" class="open-menu-button">Menu</button></body></html>
