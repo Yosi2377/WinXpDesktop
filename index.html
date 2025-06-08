@@ -345,4 +345,116 @@ function updateClock(){
 }
 
 setInterval(updateClock,1000);
-updateClock();window.addEventListener('DOMContentLoaded',function(){const contextMenu=document.getElementById("custom-menu");const menuButton=document.getElementById("menu-button");document.addEventListener("contextmenu",function(e){e.preventDefault();contextMenu.style.left=e.pageX+"px";contextMenu.style.top=e.pageY+"px";contextMenu.style.display="block";});document.addEventListener("click",function(e){if(!contextMenu.contains(e.target)&&e.target!==menuButton){contextMenu.style.display="none";}});menuButton.addEventListener("click",function(){if(draggingMenu){draggingMenu=false;return;} const r=this.getBoundingClientRect();contextMenu.style.left=r.left+"px";contextMenu.style.top=r.bottom+"px";contextMenu.style.display="block";});document.getElementById("menu-refresh").addEventListener("click",function(){location.reload();});document.getElementById("menu-top").addEventListener("click",function(){contextMenu.classList.toggle("top");});document.getElementById("menu-size").addEventListener("click",function(){const w=prompt("Default window width:",defaultWindowWidth);if(w!==null){const h=prompt("Default window height:",defaultWindowHeight);if(h!==null){const nw=parseInt(w);const nh=parseInt(h);if(!isNaN(nw)&&nw>0)defaultWindowWidth=nw;if(!isNaN(nh)&&nh>0)defaultWindowHeight=nh;}}contextMenu.style.display="none";});document.getElementById("menu-minimize").addEventListener("click",function(){if(activeWindow){activeWindow.classList.add("minimized");updateTaskbarItem(activeWindow);}contextMenu.style.display="none";});document.getElementById("menu-close").addEventListener("click",function(){if(activeWindow){activeWindow.remove();removeTaskbarItem(activeWindow);}contextMenu.style.display="none";});});</script><div id="custom-menu" class="context-menu"><ul><li id="menu-refresh">Refresh</li><li id="menu-top">Toggle On Top</li><li id="menu-size">Set Window Size...</li><li id="menu-minimize">Minimize Window</li><li id="menu-close">Close Window</li></ul></div><button id="menu-button" class="open-menu-button">Menu</button><script> let lastMouseX=0,lastMouseY=0; document.addEventListener('mousemove',e=>{lastMouseX=e.clientX;lastMouseY=e.clientY;}); document.addEventListener('keydown',e=>{   if(e.key==='ContextMenu'){     contextMenu.style.left=lastMouseX+'px';     contextMenu.style.top=lastMouseY+'px';     contextMenu.style.display='block';     e.preventDefault();   } }); let draggingMenu=false,offsetX=0,offsetY=0;menuButton.addEventListener('mousedown',function(e){if(e.button!==0)return;draggingMenu=true;const r=menuButton.getBoundingClientRect();offsetX=e.clientX-r.left;offsetY=e.clientY-r.top;menuButton.style.right='auto';});document.addEventListener('mousemove',function(e){if(!draggingMenu)return;menuButton.style.left=(e.clientX-offsetX)+'px';menuButton.style.top=(e.clientY-offsetY)+'px';});document.addEventListener('mouseup',function(){draggingMenu=false;});</script> </body></html>
+updateClock();
+window.addEventListener('DOMContentLoaded', function () {
+  const contextMenu = document.getElementById('custom-menu');
+  const menuButton = document.getElementById('menu-button');
+  document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+    contextMenu.style.left = e.pageX + 'px';
+    contextMenu.style.top = e.pageY + 'px';
+    contextMenu.style.display = 'block';
+  });
+  document.addEventListener('click', function (e) {
+    if (!contextMenu.contains(e.target) && e.target !== menuButton) {
+      contextMenu.style.display = 'none';
+    }
+  });
+  menuButton.addEventListener('click', function () {
+    if (draggingMenu) {
+      draggingMenu = false;
+      return;
+    }
+    const r = this.getBoundingClientRect();
+    contextMenu.style.left = r.left + 'px';
+    contextMenu.style.top = r.bottom + 'px';
+    contextMenu.style.display = 'block';
+  });
+  document.getElementById('menu-refresh').addEventListener('click', function () {
+    location.reload();
+  });
+  document.getElementById('menu-top').addEventListener('click', function () {
+    contextMenu.classList.toggle('top');
+  });
+  document.getElementById('menu-size').addEventListener('click', function () {
+    const w = prompt('Default window width:', defaultWindowWidth);
+    if (w !== null) {
+      const h = prompt('Default window height:', defaultWindowHeight);
+      if (h !== null) {
+        const nw = parseInt(w);
+        const nh = parseInt(h);
+        if (!isNaN(nw) && nw > 0) defaultWindowWidth = nw;
+        if (!isNaN(nh) && nh > 0) defaultWindowHeight = nh;
+      }
+    }
+    contextMenu.style.display = 'none';
+  });
+  document.getElementById('menu-move').addEventListener('click', function () {
+    menuButtonMovable = !menuButtonMovable;
+    menuButton.style.cursor = menuButtonMovable ? 'move' : 'pointer';
+    contextMenu.style.display = 'none';
+  });
+  document.getElementById('menu-minimize').addEventListener('click', function () {
+    if (activeWindow) {
+      activeWindow.classList.add('minimized');
+      updateTaskbarItem(activeWindow);
+    }
+    contextMenu.style.display = 'none';
+  });
+  document.getElementById('menu-close').addEventListener('click', function () {
+    if (activeWindow) {
+      activeWindow.remove();
+      removeTaskbarItem(activeWindow);
+    }
+    contextMenu.style.display = 'none';
+  });
+});
+</script>
+<div id="custom-menu" class="context-menu">
+  <ul>
+    <li id="menu-refresh">Refresh</li>
+    <li id="menu-top">Toggle On Top</li>
+    <li id="menu-size">Set Window Size...</li>
+    <li id="menu-move">Move Menu Button</li>
+    <li id="menu-minimize">Minimize Window</li>
+    <li id="menu-close">Close Window</li>
+  </ul>
+</div>
+<button id="menu-button" class="open-menu-button">Menu</button>
+<script>
+  let lastMouseX = 0,
+    lastMouseY = 0;
+  document.addEventListener('mousemove', e => {
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ContextMenu') {
+      contextMenu.style.left = lastMouseX + 'px';
+      contextMenu.style.top = lastMouseY + 'px';
+      contextMenu.style.display = 'block';
+      e.preventDefault();
+    }
+  });
+  let draggingMenu = false,
+    offsetX = 0,
+    offsetY = 0,
+    menuButtonMovable = true;
+  menuButton.addEventListener('mousedown', function (e) {
+    if (e.button !== 0 || !menuButtonMovable) return;
+    draggingMenu = true;
+    const r = menuButton.getBoundingClientRect();
+    offsetX = e.clientX - r.left;
+    offsetY = e.clientY - r.top;
+    menuButton.style.right = 'auto';
+  });
+  document.addEventListener('mousemove', function (e) {
+    if (!draggingMenu) return;
+    menuButton.style.left = e.clientX - offsetX + 'px';
+    menuButton.style.top = e.clientY - offsetY + 'px';
+  });
+  document.addEventListener('mouseup', function () {
+    draggingMenu = false;
+  });
+</script>
+</body></html>
