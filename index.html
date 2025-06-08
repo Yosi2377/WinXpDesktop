@@ -376,19 +376,28 @@ window.addEventListener('DOMContentLoaded', function () {
   document.getElementById('menu-top').addEventListener('click', function () {
     contextMenu.classList.toggle('top');
   });
-  document.getElementById('menu-size').addEventListener('click', function () {
-    const w = prompt('Default window width:', defaultWindowWidth);
-    if (w !== null) {
-      const h = prompt('Default window height:', defaultWindowHeight);
-      if (h !== null) {
-        const nw = parseInt(w);
-        const nh = parseInt(h);
-        if (!isNaN(nw) && nw > 0) defaultWindowWidth = nw;
-        if (!isNaN(nh) && nh > 0) defaultWindowHeight = nh;
+    document.getElementById('menu-size').addEventListener('click', function () {
+      const w = prompt('Default window width:', defaultWindowWidth);
+      if (w !== null) {
+        const h = prompt('Default window height:', defaultWindowHeight);
+        if (h !== null) {
+          const nw = parseInt(w);
+          const nh = parseInt(h);
+          if (!isNaN(nw) && nw > 0) defaultWindowWidth = nw;
+          if (!isNaN(nh) && nh > 0) defaultWindowHeight = nh;
+        }
       }
-    }
-    contextMenu.style.display = 'none';
-  });
+      contextMenu.style.display = 'none';
+    });
+    document.getElementById('menu-wallpaper').addEventListener('click', function () {
+      const desktop = document.getElementById('desktop');
+      const current = getComputedStyle(desktop).backgroundImage;
+      const url = prompt('Enter wallpaper URL:', current.slice(5, -2));
+      if (url !== null) {
+        desktop.style.backgroundImage = `url('${url}')`;
+      }
+      contextMenu.style.display = 'none';
+    });
   document.getElementById('menu-move').addEventListener('click', function () {
     menuButtonMovable = !menuButtonMovable;
     menuButton.style.cursor = menuButtonMovable ? 'move' : 'pointer';
@@ -416,6 +425,7 @@ window.addEventListener('DOMContentLoaded', function () {
     <li id="menu-top">Toggle On Top</li>
     <li id="menu-size">Set Window Size...</li>
     <li id="menu-move">Move Menu Button</li>
+    <li id="menu-wallpaper">Change Wallpaper...</li>
     <li id="menu-minimize">Minimize Window</li>
     <li id="menu-close">Close Window</li>
   </ul>
