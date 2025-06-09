@@ -1,0 +1,23 @@
+.about-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 30000;
+}
+.about-modal-content {
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #888;
+  text-align: center;
+  min-width: 200px;
+}
+.about-close {
+  float: right;
+  cursor: pointer;
+}
