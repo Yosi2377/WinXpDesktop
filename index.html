@@ -405,6 +405,10 @@ window.addEventListener('DOMContentLoaded', function () {
     }
     contextMenu.style.display = 'none';
   });
+  document.getElementById('menu-about').addEventListener('click', function () {
+    alert('Windows XP Simulator\nVersion 1.0');
+    contextMenu.style.display = 'none';
+  });
   document.getElementById('menu-move').addEventListener('click', function () {
     menuButtonMovable = !menuButtonMovable;
     menuButton.style.cursor = menuButtonMovable ? 'move' : 'pointer';
@@ -433,6 +437,7 @@ window.addEventListener('DOMContentLoaded', function () {
     <li id="menu-size">Set Window Size...</li>
     <li id="menu-move">Move Menu Button</li>
     <li id="menu-wallpaper">Change Wallpaper...</li>
+    <li id="menu-about">About</li>
     <li id="menu-minimize">Minimize Window</li>
     <li id="menu-close">Close Window</li>
   </ul>

@@ -11,3 +11,4 @@ This project simulates a basic Windows XP desktop environment in the browser.
 - Option to set the default window size using the context menu
 - Toggle ability to move the **Menu** button
 - Change wallpaper from the context menu
+- About option to display version information
