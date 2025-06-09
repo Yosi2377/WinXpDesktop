@@ -1,0 +1,8 @@
+{
+  "name": "winxpdesktop",
+  "version": "1.0.0",
+  "description": "Windows XP desktop simulator",
+  "scripts": {
+    "test": "echo \"No tests available\""
+  }
+}
