@@ -376,7 +376,7 @@ window.addEventListener('DOMContentLoaded', function () {
   document.getElementById('menu-top').addEventListener('click', function () {
     contextMenu.classList.toggle('top');
   });
-    document.getElementById('menu-size').addEventListener('click', function () {
+  document.getElementById('menu-size').addEventListener('click', function () {
       const w = prompt('Default window width:', defaultWindowWidth);
       if (w !== null) {
         const h = prompt('Default window height:', defaultWindowHeight);
@@ -389,15 +389,22 @@ window.addEventListener('DOMContentLoaded', function () {
       }
       contextMenu.style.display = 'none';
     });
-    document.getElementById('menu-wallpaper').addEventListener('click', function () {
-      const desktop = document.getElementById('desktop');
-      const current = getComputedStyle(desktop).backgroundImage;
-      const url = prompt('Enter wallpaper URL:', current.slice(5, -2));
-      if (url !== null) {
-        desktop.style.backgroundImage = `url('${url}')`;
+  document.getElementById('menu-wallpaper').addEventListener('click', function () {
+    const desktop = document.getElementById('desktop');
+    const current = getComputedStyle(desktop).backgroundImage;
+    const match = current.match(/^url\(["']?(.*?)["']?\)$/i);
+    const defaultUrl = match ? match[1] : '';
+    const url = prompt('Enter wallpaper URL:', defaultUrl);
+    if (url !== null) {
+      if (url.trim() === '') {
+        desktop.style.backgroundImage = 'none';
+      } else {
+        const escaped = url.replace(/'/g, "\\'");
+        desktop.style.backgroundImage = `url('${escaped}')`;
       }
-      contextMenu.style.display = 'none';
-    });
+    }
+    contextMenu.style.display = 'none';
+  });
   document.getElementById('menu-move').addEventListener('click', function () {
     menuButtonMovable = !menuButtonMovable;
     menuButton.style.cursor = menuButtonMovable ? 'move' : 'pointer';
