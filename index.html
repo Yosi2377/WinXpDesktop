@@ -346,9 +346,13 @@ function updateClock(){
 
 setInterval(updateClock,1000);
 updateClock();
+const APP_VERSION = '1.0';
 window.addEventListener('DOMContentLoaded', function () {
   const contextMenu = document.getElementById('custom-menu');
   const menuButton = document.getElementById('menu-button');
+  const aboutModal = document.getElementById('about-modal');
+  const aboutClose = document.getElementById('about-close');
+  document.getElementById('about-version').textContent = APP_VERSION;
   document.addEventListener('contextmenu', function (e) {
     e.preventDefault();
     contextMenu.style.left = e.pageX + 'px';
@@ -406,8 +410,16 @@ window.addEventListener('DOMContentLoaded', function () {
     contextMenu.style.display = 'none';
   });
   document.getElementById('menu-about').addEventListener('click', function () {
-    alert('Windows XP Simulator\nVersion 1.0');
+    aboutModal.style.display = 'flex';
     contextMenu.style.display = 'none';
+  });
+  aboutClose.addEventListener('click', function () {
+    aboutModal.style.display = 'none';
+  });
+  window.addEventListener('click', function (e) {
+    if (e.target === aboutModal) {
+      aboutModal.style.display = 'none';
+    }
   });
   document.getElementById('menu-move').addEventListener('click', function () {
     menuButtonMovable = !menuButtonMovable;
@@ -443,6 +455,38 @@ window.addEventListener('DOMContentLoaded', function () {
   </ul>
 </div>
 <button id="menu-button" class="open-menu-button">Menu</button>
+<div id="about-modal" class="about-modal">
+  <div class="about-modal-content">
+    <span id="about-close" class="about-close">&times;</span>
+    <h3>Windows XP Simulator</h3>
+    <p>Version <span id="about-version"></span></p>
+  </div>
+</div>
+<style>
+  .about-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  .about-modal-content {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #888;
+    text-align: center;
+    min-width: 200px;
+  }
+  .about-close {
+    float: right;
+    cursor: pointer;
+  }
+</style>
 <script>
   let lastMouseX = 0,
     lastMouseY = 0;
