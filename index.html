@@ -353,6 +353,23 @@ window.addEventListener('DOMContentLoaded', function () {
   const aboutModal = document.getElementById('about-modal');
   const aboutClose = document.getElementById('about-close');
   let previousFocus;
+    const focusableSelector = 'a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])';
+    let modalFocusables = [];
+    function trapFocus(e) {
+      if (e.key === "Tab") {
+        e.preventDefault();
+        const items = modalFocusables;
+        let index = items.indexOf(document.activeElement);
+        if (e.shiftKey) {
+          index = index <= 0 ? items.length - 1 : index - 1;
+        } else {
+          index = index === items.length - 1 ? 0 : index + 1;
+        }
+        items[index].focus();
+      } else if (e.key === "Escape") {
+        aboutClose.click();
+      }
+    }
   document.getElementById('about-version').textContent = APP_VERSION;
   document.addEventListener('contextmenu', function (e) {
     e.preventDefault();
@@ -414,14 +431,18 @@ window.addEventListener('DOMContentLoaded', function () {
     aboutModal.style.display = "flex";
     contextMenu.style.display = "none";
     previousFocus = document.activeElement;
-    aboutClose.focus();
+      modalFocusables = Array.from(aboutModal.querySelectorAll(focusableSelector));
+      aboutModal.addEventListener('keydown', trapFocus);
+      modalFocusables[0].focus();
   });
   aboutClose.addEventListener("click", function () {
+      aboutModal.removeEventListener('keydown', trapFocus);
     aboutModal.style.display = "none";
     if (previousFocus) previousFocus.focus();
   });
   window.addEventListener('click', function (e) {
     if (e.target === aboutModal) {
+      aboutModal.removeEventListener('keydown', trapFocus);
       aboutModal.style.display = 'none';
       if (previousFocus) previousFocus.focus();
     }
@@ -477,11 +498,9 @@ window.addEventListener('DOMContentLoaded', function () {
   document.addEventListener("keydown", e => {
     if (aboutModal.style.display === "flex") {
       if (e.key === "Escape") {
-        aboutModal.style.display = "none";
-        if (previousFocus) previousFocus.focus();
+        aboutClose.click();
       } else if (e.key === "Tab") {
-        e.preventDefault();
-        aboutClose.focus();
+        trapFocus(e);
       }
     } else if (e.key === "ContextMenu") {
       contextMenu.style.left = lastMouseX + "px";
