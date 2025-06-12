@@ -353,9 +353,9 @@ window.addEventListener('DOMContentLoaded', function () {
   const aboutModal = document.getElementById('about-modal');
   const aboutClose = document.getElementById('about-close');
   let previousFocus;
-    const focusableSelector = 'a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])';
-    let modalFocusables = [];
-    function trapFocus(e) {
+  const focusableSelector = 'a, button, input, textarea, select, [tabindex]:not([tabindex="-1"])';
+  let modalFocusables = [];
+  function trapFocus(e) {
       if (e.key === "Tab") {
         e.preventDefault();
         const items = modalFocusables;
