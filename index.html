@@ -434,22 +434,24 @@ window.addEventListener('DOMContentLoaded', function () {
     aboutModal.style.display = "flex";
     contextMenu.style.display = "none";
     previousFocus = document.activeElement;
-      modalFocusables = Array.from(aboutModal.querySelectorAll(focusableSelector));
-      aboutModal.addEventListener('keydown', trapFocus);
-      if (modalFocusables.length > 0) {
-        modalFocusables[0].focus();
-      }
+    modalFocusables = Array.from(aboutModal.querySelectorAll(focusableSelector));
+    aboutModal.addEventListener('keydown', trapFocus);
+    if (modalFocusables.length > 0) {
+      modalFocusables[0].focus();
+    }
   });
+
   aboutClose.addEventListener("click", function () {
-      aboutModal.removeEventListener('keydown', trapFocus);
+    aboutModal.removeEventListener('keydown', trapFocus);
     aboutModal.style.display = "none";
     if (previousFocus) previousFocus.focus();
   });
-    window.addEventListener('click', function (e) {
-      if (e.target === aboutModal) {
-        aboutClose.click();
-      }
-    });
+
+  window.addEventListener('click', function (e) {
+    if (e.target === aboutModal) {
+      aboutClose.click();
+    }
+  });
   document.getElementById('menu-move').addEventListener('click', function () {
     menuButtonMovable = !menuButtonMovable;
     menuButton.style.cursor = menuButtonMovable ? 'move' : 'pointer';
