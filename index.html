@@ -146,6 +146,8 @@ let windowZIndex = 1000;
 let defaultWindowWidth = 800;
 let defaultWindowHeight = 600;
 let activeWindow = null;
+let use24Hour = true;
+let desktopIconsVisible = true;
 
 function createWindow(app, width = defaultWindowWidth, height = defaultWindowHeight){
   const {title,content}=apps[app];
@@ -339,11 +341,16 @@ addAppButton.addEventListener('click',function(){
 function updateClock(){
   const now = new Date();
   const israelTime = new Date(now.toLocaleString("en-US", {timeZone: "Asia/Jerusalem"}));
-  const hours = israelTime.getHours().toString().padStart(2, '0');
+  let h = israelTime.getHours();
   const minutes = israelTime.getMinutes().toString().padStart(2, '0');
-  document.querySelector('.clock').textContent = `${hours}:${minutes}`;
+  let displayHours = h.toString().padStart(2, '0');
+  let suffix = '';
+  if(!use24Hour){
+    displayHours = ((h % 12) || 12).toString().padStart(2, '0');
+    suffix = h >= 12 ? ' PM' : ' AM';
+  }
+  document.querySelector('.clock').textContent = `${displayHours}:${minutes}${suffix}`;
 }
-
 setInterval(updateClock,1000);
 updateClock();
 const APP_VERSION = '1.0.0';
@@ -464,6 +471,47 @@ window.addEventListener('DOMContentLoaded', function () {
     }
     contextMenu.style.display = 'none';
   });
+    document.getElementById('menu-reset').addEventListener('click', function () {
+      menuButton.style.left = '';
+      menuButton.style.right = '20px';
+      menuButton.style.top = '80px';
+      contextMenu.style.display = 'none';
+    });
+    document.getElementById('menu-clock').addEventListener('click', function () {
+      use24Hour = !use24Hour;
+      updateClock();
+      contextMenu.style.display = 'none';
+    });
+    document.getElementById('menu-icons').addEventListener('click', function () {
+      desktopIconsVisible = !desktopIconsVisible;
+      document.querySelectorAll('.icon').forEach(icon => {
+        icon.style.display = desktopIconsVisible ? '' : 'none';
+      });
+      contextMenu.style.display = 'none';
+    });
+    document.getElementById('menu-show').addEventListener('click', function () {
+      document.querySelectorAll('.window').forEach(win => {
+        if (!win.classList.contains('minimized')) {
+          win.classList.add('minimized');
+          updateTaskbarItem(win);
+        }
+      });
+      contextMenu.style.display = 'none';
+    });
+    document.getElementById('menu-restore').addEventListener('click', function () {
+      document.querySelectorAll('.window.minimized').forEach(win => {
+        win.classList.remove('minimized');
+        updateTaskbarItem(win);
+      });
+      contextMenu.style.display = 'none';
+    });
+    document.getElementById('menu-close-all').addEventListener('click', function () {
+      document.querySelectorAll('.window').forEach(win => {
+        win.remove();
+        removeTaskbarItem(win);
+      });
+      contextMenu.style.display = 'none';
+    });
   document.getElementById('menu-close').addEventListener('click', function () {
     if (activeWindow) {
       activeWindow.remove();
@@ -482,6 +530,12 @@ window.addEventListener('DOMContentLoaded', function () {
     <li id="menu-wallpaper">Change Wallpaper...</li>
     <li id="menu-about">About</li>
     <li id="menu-minimize">Minimize Window</li>
+    <li id="menu-reset">Reset Menu Position</li>
+    <li id="menu-clock">Toggle Clock Format</li>
+    <li id="menu-icons">Toggle Desktop Icons</li>
+    <li id="menu-show">Show Desktop</li>
+    <li id="menu-restore">Restore All Windows</li>
+    <li id="menu-close-all">Close All Windows</li>
     <li id="menu-close">Close Window</li>
   </ul>
 </div>
