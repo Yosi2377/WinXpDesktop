@@ -5,25 +5,76 @@ This project simulates a comprehensive Windows XP desktop environment in the bro
 ## Applications
 
 ### Productivity Apps
-- **📝 Notepad** - Full-featured text editor with save/load functionality using localStorage
-- **🔢 Calculator** - Complete calculator with all basic math operations
-- **🎨 Paint** - Drawing application with color picker, brush size control, and canvas tools
+- **📝 Notepad** - Full-featured text editor with:
+  - Save/load functionality using localStorage
+  - Search and find text
+  - Word count with character and line statistics
+  - Real-time word/character counter
+- **🔢 Calculator** - Complete calculator with:
+  - All basic math operations (+, -, *, /)
+  - Memory functions (M+, M-, MR, MC)
+  - Backspace and clear functions
+- **🎨 Paint** - Drawing application with:
+  - Multiple tools: Brush, Rectangle, Circle, Eraser
+  - Color picker and brush size control
+  - Fill and clear canvas functions
+  - Real-time drawing preview for shapes
 
 ### Games
 - **💣 Minesweeper** - Classic minesweeper game with flag support and mine detection
-- **🃏 Solitaire** - Traditional Windows Solitaire card game
+- **🃏 Solitaire** - Full drag-and-drop Solitaire game with:
+  - Complete card deck (52 cards in 4 suits)
+  - Drag and drop functionality
+  - Stock, waste, foundation, and tableau piles
+  - Win detection and game reset
+- **🐍 Snake** - Classic Snake game with:
+  - Arrow key controls
+  - Score tracking and high score
+  - Collision detection
+  - Increasing difficulty
+- **⭕ Tic-Tac-Toe** - Two-player Tic-Tac-Toe with win detection
 
 ### Media & Internet
 - **🎵 Windows Media Player** - Media player with YouTube embed support
 - **🌐 Google Chrome** - Embedded browser window
+- **🌐 Internet Explorer** - Fully functional browser with:
+  - URL navigation bar
+  - Back/forward navigation
+  - Refresh and home buttons
+  - Embedded iframe for web browsing
 - **🎮 PSP Emulator** - PSP game emulator integration
 
 ### System Tools
 - **My Computer** - Browse system drives
 - **My Documents** - Access document folders
 - **Recycle Bin** - Manage deleted files
-- **Control Panel** - System settings
-- **Internet Explorer** - Classic IE browser
+- **Control Panel** - System settings with:
+  - Appearance and themes configuration
+  - Display settings (window size)
+  - Sound settings
+  - System information viewer
+  - Storage management
+  - Date and time (clock format toggle)
+- **📧 Outlook Express** - Email client interface with:
+  - Inbox, sent items, drafts, and trash folders
+  - Compose new email functionality
+  - Sample emails for demonstration
+- **📋 Task Manager** - View and manage open windows with:
+  - List of all running applications
+  - Close individual or all windows
+  - Refresh window list
+- **📝 Sticky Notes** - Desktop sticky notes with:
+  - Persistent storage using localStorage
+  - Save, load, and clear functions
+- **📅 Calendar** - Interactive calendar with:
+  - Month navigation (previous/next)
+  - Today highlighting
+  - Jump to current date
+  - Full date display
+- **🖼️ Photo Viewer** - Image viewer with:
+  - Load images from URL
+  - Auto-fit to window size
+  - Error handling for invalid URLs
 
 ## Features
 
@@ -43,9 +94,15 @@ This project simulates a comprehensive Windows XP desktop environment in the bro
 - Draggable desktop icons
 
 ### Customization
-- **Color Themes** - Choose between Classic Blue, Olive Green, or Silver themes
+- **Color Themes** - Choose from 6 different themes:
+  - Classic Blue (default Windows XP)
+  - Olive Green
+  - Silver
+  - Luna (deep blue)
+  - Royale (medium blue)
+  - Zune (orange)
 - **Wallpaper** - Change desktop background via context menu
-- **Window Sizes** - Set default window dimensions
+- **Window Sizes** - Set default window dimensions via Control Panel
 - **Clock Format** - Toggle between 12/24 hour display with full date tooltip
 - **Menu Button** - Movable menu button with position reset
 
