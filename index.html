@@ -1,4 +1,102 @@
-<html><head><base href="https://websim.ai/"><title>Windows XP Simulator</title><style>body{margin:0;padding:0;font-family:'Tahoma',sans-serif;overflow:hidden;user-select:none;}.desktop{width:100vw;height:100vh;position:relative;background-image:url('https://d7hftxdivxxvm.cloudfront.net/?quality=80&resize_to=width&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2F2RNK1P0BYVrSCZEy_Sd1Ew%252F3417757448_4a6bdf36ce_o.jpg&width=910');background-size:cover;background-position:center;}.taskbar{position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(to bottom,#2584ff 0%,#0254cc 100%);display:flex;align-items:center;padding:0 2px;z-index:1000;}.start-button{background:linear-gradient(to bottom,#6cd82e 0%,#4ca916 100%);color:white;font-weight:bold;padding:2px 10px;border-radius:3px;margin-right:10px;cursor:pointer;}.clock{margin-left:auto;color:white;font-size:11px;padding-right:10px;}.icon{position:absolute;display:flex;flex-direction:column;align-items:center;cursor:move;color:white;text-shadow:1px 1px 2px black;}.icon img{width:32px;height:32px;margin-bottom:5px;}.icon-label{font-size:12px;text-align:center;}.window{position:absolute;background:#ECE9D8;border:1px solid #0054E3;box-shadow:2px 2px 5px rgba(0,0,0,0.2);resize:both;overflow:auto;min-width:200px;min-height:150px;}.window-header{background:linear-gradient(to right,#0058E6,#3986FF);color:white;padding:5px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;cursor:move;}.window-content{padding:10px;height:calc(100% - 40px);overflow:auto;}.close-btn,.minimize-btn,.maximize-btn{cursor:pointer;margin-left:5px;}.folder-view{display:flex;flex-wrap:wrap;gap:30px;padding:15px;}.folder-icon{display:flex;flex-direction:column;align-items:center;width:80px;cursor:pointer;}.folder-icon img{width:48px;height:48px;margin-bottom:5px;}.folder-label{font-size:11px;text-align:center;color:black;} .folder-window{display:flex;height:100%;background:#fff;} .folder-sidebar{width:150px;background:linear-gradient(to bottom,#dbe9f9,#c2d8f0);padding:10px;font-size:12px;color:#000;} .folder-content{flex:1;overflow:auto;}.my-computer-content{display:flex;flex-wrap:wrap;gap:20px;padding:10px;}.drive-icon{display:flex;flex-direction:column;align-items:center;width:80px;cursor:pointer;}.drive-icon img{width:32px;height:32px;margin-bottom:5px;}.drive-label{font-size:11px;text-align:center;color:black;}.document-content{padding:10px;font-size:12px;}.psp-emu-window{width:100%;height:100%;border:none;}.maximized{position:fixed !important;top:0 !important;left:0 !important;width:100vw !important;height:calc(100vh - 30px) !important;z-index:999;}.psp-emu-container{position:relative;width:100%;height:100%;}.psp-emu-overlay{position:absolute;top:0;left:0;right:0;height:38px;background:#ECE9D8;z-index:1;}.start-menu{position:absolute;bottom:30px;left:0;width:380px;background:#D5E3FC;border:1px solid #0054E3;box-shadow:2px 2px 5px rgba(0,0,0,0.2);display:none;z-index:1001;}.start-menu-header{background:linear-gradient(to right,#1758CA,#7DA3E8);color:white;padding:5px;font-weight:bold;font-size:14px;display:flex;align-items:center;}.start-menu-header img{width:24px;height:24px;margin-right:5px;}.start-menu-left{width:200px;background:#D5E3FC;padding:5px;}.start-menu-right{width:180px;background:#7DA3E8;padding:5px;}.start-menu-item{padding:5px;cursor:pointer;display:flex;align-items:center;}.start-menu-item:hover{background:#316AC5;color:white;}.start-menu-item img{width:24px;height:24px;margin-right:5px;}.start-menu-separator{height:1px;background:#7DA3E8;margin:5px 0;}.minimized{display:none;}.taskbar-item{background:linear-gradient(to bottom,#f0f0f0,#e0e0e0);border:1px solid #999;padding:2px 5px;margin-right:2px;cursor:pointer;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;height:22px;line-height:22px;}.chrome-window{width:100%;height:calc(100% - 10px);border:none;}#taskbar-items{display:flex;flex-grow:1;overflow-x:hidden;}</style><style>.add-app-button{background:linear-gradient(to bottom,#ffa64d 0%,#d97a00 100%);color:white;font-weight:bold;padding:2px 10px;border-radius:3px;margin-right:10px;cursor:pointer;}</style><style>.context-menu{position:fixed;display:none;background:#f0f0f0;border:1px solid #666;z-index:1000;} .context-menu ul{list-style:none;margin:0;padding:5px 0;} .context-menu li{padding:4px 20px;white-space:nowrap;cursor:pointer;} .context-menu li:hover{background:#0a246a;color:#fff;} .context-menu.top{z-index:20000;} .open-menu-button{position:fixed;top:80px;right:20px;z-index:10001;cursor:move;}</style><link rel='stylesheet' href='about-modal.css'></head><body><div id="desktop" class="desktop"><div class="icon" style="top:20px;left:20px;" data-app="my-computer"><img src="https://i.imgur.com/Rc7JRUI.png" alt="My Computer"><div class="icon-label">My Computer</div></div><div class="icon" style="top:100px;left:20px;" data-app="recycle-bin"><img src="https://i.imgur.com/AVKS9Rm.png" alt="Recycle Bin"><div class="icon-label">Recycle Bin</div></div><div class="icon" style="top:180px;left:20px;" data-app="my-documents"><img src="https://cdn-icons-png.flaticon.com/512/3330/3330314.png" alt="My Documents"><div class="icon-label">My Documents</div></div><div class="icon" style="top:260px;left:20px;" data-app="psp-emu"><img src="https://cdn-icons-png.flaticon.com/512/2949/2949874.png" alt="PSP EMU"><div class="icon-label">PSP EMU</div></div><div class="icon" style="top:340px;left:20px;" data-app="google-chrome"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg" alt="Google Chrome"><div class="icon-label">Google Chrome</div></div><div class="taskbar"><div class="start-button">Start</div><div class="add-app-button">Add App</div><div id="taskbar-items"></div><div class="clock">12:00</div></div><div class="start-menu"><div class="start-menu-header"><img src="https://i.imgur.com/Rc7JRUI.png" alt="User Icon">User</div><div style="display:flex;"><div class="start-menu-left"><div class="start-menu-item" data-app="internet-explorer"><img src="https://i.imgur.com/s9HhTqB.png" alt="Internet Explorer">Internet Explorer</div><div class="start-menu-item" data-app="outlook-express"><img src="https://i.imgur.com/iJrBwfj.png" alt="Outlook Express">Outlook Express</div><div class="start-menu-separator"></div><div class="start-menu-item" data-app="my-computer"><img src="https://i.imgur.com/Rc7JRUI.png" alt="My Computer">My Computer</div><div class="start-menu-item" data-app="my-documents"><img src="https://cdn-icons-png.flaticon.com/512/3330/3330314.png" alt="My Documents">My Documents</div><div class="start-menu-item" data-app="control-panel"><img src="https://i.imgur.com/Mrqm7i6.png" alt="Control Panel">Control Panel</div><div class="start-menu-separator"></div><div class="start-menu-item" data-app="help"><img src="https://i.imgur.com/OQw2CwX.png" alt="Help and Support">Help and Support</div><div class="start-menu-item" data-app="search"><img src="https://i.imgur.com/0X6zIZd.png" alt="Search">Search</div><div class="start-menu-item" data-app="run"><img src="https://i.imgur.com/qgxGYQM.png" alt="Run">Run...</div></div><div class="start-menu-right"><div class="start-menu-item" data-app="internet-explorer"><img src="https://i.imgur.com/s9HhTqB.png" alt="Internet">Internet</div><div class="start-menu-item" data-app="email"><img src="https://i.imgur.com/iJrBwfj.png" alt="E-mail">E-mail</div><div class="start-menu-separator"></div><div class="start-menu-item" data-app="psp-emu"><img src="https://cdn-icons-png.flaticon.com/512/2949/2949874.png" alt="PSP EMU">PSP EMU</div><div class="start-menu-item" data-app="google-chrome"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg" alt="Google Chrome">Google Chrome</div><div class="start-menu-separator"></div><div class="start-menu-item" data-app="log-off"><img src="https://i.imgur.com/BpMCFCX.png" alt="Log Off">Log Off</div><div class="start-menu-item" data-app="turn-off"><img src="https://i.imgur.com/TftAWxI.png" alt="Turn Off Computer">Turn Off Computer</div></div></div></div></div><script>const apps={
+<html><head><base href="https://websim.ai/"><title>Windows XP Simulator</title><style>body{margin:0;padding:0;font-family:'Tahoma',sans-serif;overflow:hidden;user-select:none;}.desktop{width:100vw;height:100vh;position:relative;background-image:url('https://d7hftxdivxxvm.cloudfront.net/?quality=80&resize_to=width&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2F2RNK1P0BYVrSCZEy_Sd1Ew%252F3417757448_4a6bdf36ce_o.jpg&width=910');background-size:cover;background-position:center;transition:background-color 0.3s ease;}.taskbar{position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(to bottom,#2584ff 0%,#0254cc 100%);display:flex;align-items:center;padding:0 2px;z-index:1000;transition:background 0.3s ease;}.start-button{background:linear-gradient(to bottom,#6cd82e 0%,#4ca916 100%);color:white;font-weight:bold;padding:2px 10px;border-radius:3px;margin-right:10px;cursor:pointer;transition:all 0.2s ease;}.start-button:hover{transform:scale(1.05);}.clock{margin-left:auto;color:white;font-size:11px;padding-right:10px;cursor:pointer;}.icon{position:absolute;display:flex;flex-direction:column;align-items:center;cursor:move;color:white;text-shadow:1px 1px 2px black;transition:transform 0.2s ease;}.icon:hover{transform:scale(1.1);}.icon img{width:32px;height:32px;margin-bottom:5px;}.icon-label{font-size:12px;text-align:center;}.window{position:absolute;background:#ECE9D8;border:1px solid #0054E3;box-shadow:2px 2px 5px rgba(0,0,0,0.2);resize:both;overflow:auto;min-width:200px;min-height:150px;transition:all 0.3s ease;animation:windowFadeIn 0.3s ease;}.window-header{background:linear-gradient(to right,#0058E6,#3986FF);color:white;padding:5px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;cursor:move;transition:background 0.2s ease;}.window-header:hover{background:linear-gradient(to right,#0068F6,#4996FF);}.window-content{padding:10px;height:calc(100% - 40px);overflow:auto;}.close-btn,.minimize-btn,.maximize-btn{cursor:pointer;margin-left:5px;padding:2px 6px;border-radius:2px;transition:background 0.2s ease;}.close-btn:hover{background:rgba(255,255,255,0.2);}.minimize-btn:hover{background:rgba(255,255,255,0.2);}.maximize-btn:hover{background:rgba(255,255,255,0.2);}.folder-view{display:flex;flex-wrap:wrap;gap:30px;padding:15px;}.folder-icon{display:flex;flex-direction:column;align-items:center;width:80px;cursor:pointer;transition:transform 0.2s ease;}.folder-icon:hover{transform:scale(1.1);}.folder-icon img{width:48px;height:48px;margin-bottom:5px;}.folder-label{font-size:11px;text-align:center;color:black;} .folder-window{display:flex;height:100%;background:#fff;} .folder-sidebar{width:150px;background:linear-gradient(to bottom,#dbe9f9,#c2d8f0);padding:10px;font-size:12px;color:#000;} .folder-content{flex:1;overflow:auto;}.my-computer-content{display:flex;flex-wrap:wrap;gap:20px;padding:10px;}.drive-icon{display:flex;flex-direction:column;align-items:center;width:80px;cursor:pointer;transition:transform 0.2s ease;}.drive-icon:hover{transform:scale(1.1);}.drive-icon img{width:32px;height:32px;margin-bottom:5px;}.drive-label{font-size:11px;text-align:center;color:black;}.document-content{padding:10px;font-size:12px;}.psp-emu-window{width:100%;height:100%;border:none;}.maximized{position:fixed !important;top:0 !important;left:0 !important;width:100vw !important;height:calc(100vh - 30px) !important;z-index:999;}.psp-emu-container{position:relative;width:100%;height:100%;}.psp-emu-overlay{position:absolute;top:0;left:0;right:0;height:38px;background:#ECE9D8;z-index:1;}.start-menu{position:absolute;bottom:30px;left:0;width:380px;background:#D5E3FC;border:1px solid #0054E3;box-shadow:2px 2px 5px rgba(0,0,0,0.2);display:none;z-index:1001;animation:slideUp 0.2s ease;}.start-menu-header{background:linear-gradient(to right,#1758CA,#7DA3E8);color:white;padding:5px;font-weight:bold;font-size:14px;display:flex;align-items:center;}.start-menu-header img{width:24px;height:24px;margin-right:5px;}.start-menu-left{width:200px;background:#D5E3FC;padding:5px;}.start-menu-right{width:180px;background:#7DA3E8;padding:5px;}.start-menu-item{padding:5px;cursor:pointer;display:flex;align-items:center;transition:background 0.2s ease;}.start-menu-item:hover{background:#316AC5;color:white;}.start-menu-item img{width:24px;height:24px;margin-right:5px;}.start-menu-separator{height:1px;background:#7DA3E8;margin:5px 0;}.minimized{display:none;animation:windowMinimize 0.3s ease;}.taskbar-item{background:linear-gradient(to bottom,#f0f0f0,#e0e0e0);border:1px solid #999;padding:2px 5px;margin-right:2px;cursor:pointer;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;height:22px;line-height:22px;transition:all 0.2s ease;}.taskbar-item:hover{background:linear-gradient(to bottom,#fff,#f0f0f0);}.chrome-window{width:100%;height:calc(100% - 10px);border:none;}#taskbar-items{display:flex;flex-grow:1;overflow-x:hidden;}@keyframes windowFadeIn{from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}@keyframes slideUp{from{transform:translateY(10px);opacity:0;}to{transform:translateY(0);opacity:1;}}@keyframes windowMinimize{to{transform:scale(0.1);opacity:0;}}</style><style>.add-app-button{background:linear-gradient(to bottom,#ffa64d 0%,#d97a00 100%);color:white;font-weight:bold;padding:2px 10px;border-radius:3px;margin-right:10px;cursor:pointer;}</style><style>.context-menu{position:fixed;display:none;background:#f0f0f0;border:1px solid #666;z-index:1000;} .context-menu ul{list-style:none;margin:0;padding:5px 0;} .context-menu li{padding:4px 20px;white-space:nowrap;cursor:pointer;} .context-menu li:hover{background:#0a246a;color:#fff;} .context-menu.top{z-index:20000;} .open-menu-button{position:fixed;top:80px;right:20px;z-index:10001;cursor:move;}</style><link rel='stylesheet' href='about-modal.css'></head><body><div id="desktop" class="desktop"><div class="icon" style="top:20px;left:20px;" data-app="my-computer" title="My Computer"><img src="https://i.imgur.com/Rc7JRUI.png" alt="My Computer"><div class="icon-label">My Computer</div></div><div class="icon" style="top:100px;left:20px;" data-app="recycle-bin" title="Recycle Bin"><img src="https://i.imgur.com/AVKS9Rm.png" alt="Recycle Bin"><div class="icon-label">Recycle Bin</div></div><div class="icon" style="top:180px;left:20px;" data-app="my-documents" title="My Documents"><img src="https://cdn-icons-png.flaticon.com/512/3330/3330314.png" alt="My Documents"><div class="icon-label">My Documents</div></div><div class="icon" style="top:20px;left:120px;" data-app="notepad" title="Notepad - Text Editor"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991112.png" alt="Notepad"><div class="icon-label">Notepad</div></div><div class="icon" style="top:100px;left:120px;" data-app="calculator" title="Calculator"><img src="https://cdn-icons-png.flaticon.com/512/2698/2698011.png" alt="Calculator"><div class="icon-label">Calculator</div></div><div class="icon" style="top:180px;left:120px;" data-app="paint" title="Paint - Drawing Application"><img src="https://cdn-icons-png.flaticon.com/512/2965/2965230.png" alt="Paint"><div class="icon-label">Paint</div></div><div class="icon" style="top:20px;left:220px;" data-app="minesweeper" title="Minesweeper Game"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991423.png" alt="Minesweeper"><div class="icon-label">Minesweeper</div></div><div class="icon" style="top:100px;left:220px;" data-app="solitaire" title="Solitaire Card Game"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991495.png" alt="Solitaire"><div class="icon-label">Solitaire</div></div><div class="icon" style="top:180px;left:220px;" data-app="media-player" title="Windows Media Player"><img src="https://cdn-icons-png.flaticon.com/512/2965/2965307.png" alt="Media Player"><div class="icon-label">Media Player</div></div><div class="icon" style="top:260px;left:20px;" data-app="psp-emu" title="PSP Emulator"><img src="https://cdn-icons-png.flaticon.com/512/2949/2949874.png" alt="PSP EMU"><div class="icon-label">PSP EMU</div></div><div class="icon" style="top:340px;left:20px;" data-app="google-chrome" title="Google Chrome Browser"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg" alt="Google Chrome"><div class="icon-label">Google Chrome</div></div><div class="taskbar"><div class="start-button">Start</div><div class="add-app-button">Add App</div><div id="taskbar-items"></div><div class="clock">12:00</div></div><div class="start-menu"><div class="start-menu-header"><img src="https://i.imgur.com/Rc7JRUI.png" alt="User Icon">User</div><div style="display:flex;"><div class="start-menu-left"><div class="start-menu-item" data-app="internet-explorer"><img src="https://i.imgur.com/s9HhTqB.png" alt="Internet Explorer">Internet Explorer</div><div class="start-menu-item" data-app="outlook-express"><img src="https://i.imgur.com/iJrBwfj.png" alt="Outlook Express">Outlook Express</div><div class="start-menu-separator"></div><div class="start-menu-item" data-app="my-computer"><img src="https://i.imgur.com/Rc7JRUI.png" alt="My Computer">My Computer</div><div class="start-menu-item" data-app="my-documents"><img src="https://cdn-icons-png.flaticon.com/512/3330/3330314.png" alt="My Documents">My Documents</div><div class="start-menu-item" data-app="control-panel"><img src="https://i.imgur.com/Mrqm7i6.png" alt="Control Panel">Control Panel</div><div class="start-menu-separator"></div><div class="start-menu-item" data-app="help"><img src="https://i.imgur.com/OQw2CwX.png" alt="Help and Support">Help and Support</div><div class="start-menu-item" data-app="search"><img src="https://i.imgur.com/0X6zIZd.png" alt="Search">Search</div><div class="start-menu-item" data-app="run"><img src="https://i.imgur.com/qgxGYQM.png" alt="Run">Run...</div></div><div class="start-menu-right"><div class="start-menu-item" data-app="notepad"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991112.png" alt="Notepad">Notepad</div><div class="start-menu-item" data-app="calculator"><img src="https://cdn-icons-png.flaticon.com/512/2698/2698011.png" alt="Calculator">Calculator</div><div class="start-menu-item" data-app="paint"><img src="https://cdn-icons-png.flaticon.com/512/2965/2965230.png" alt="Paint">Paint</div><div class="start-menu-separator"></div><div class="start-menu-item" data-app="minesweeper"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991423.png" alt="Minesweeper">Minesweeper</div><div class="start-menu-item" data-app="solitaire"><img src="https://cdn-icons-png.flaticon.com/512/2991/2991495.png" alt="Solitaire">Solitaire</div><div class="start-menu-item" data-app="media-player"><img src="https://cdn-icons-png.flaticon.com/512/2965/2965307.png" alt="Media Player">Media Player</div><div class="start-menu-separator"></div><div class="start-menu-item" data-app="psp-emu"><img src="https://cdn-icons-png.flaticon.com/512/2949/2949874.png" alt="PSP EMU">PSP EMU</div><div class="start-menu-item" data-app="google-chrome"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg" alt="Google Chrome">Google Chrome</div><div class="start-menu-separator"></div><div class="start-menu-item" data-app="log-off"><img src="https://i.imgur.com/BpMCFCX.png" alt="Log Off">Log Off</div><div class="start-menu-item" data-app="turn-off"><img src="https://i.imgur.com/TftAWxI.png" alt="Turn Off Computer">Turn Off Computer</div></div></div></div></div><script>const apps={
+  'notepad': {
+    title: 'Notepad',
+    content: `
+      <div style="display:flex;flex-direction:column;height:100%;background:#fff;">
+        <div style="background:#ECE9D8;padding:2px;border-bottom:1px solid #999;display:flex;gap:10px;">
+          <button onclick="document.querySelector('.notepad-text').value=''" style="padding:2px 8px;">New</button>
+          <button onclick="saveNotepad()" style="padding:2px 8px;">Save</button>
+          <button onclick="loadNotepad()" style="padding:2px 8px;">Load</button>
+        </div>
+        <textarea class="notepad-text" style="flex:1;border:none;padding:10px;font-family:Consolas,monospace;font-size:13px;resize:none;outline:none;"></textarea>
+      </div>
+    `
+  },
+  'calculator': {
+    title: 'Calculator',
+    content: `
+      <div style="background:#ECE9D8;padding:10px;width:220px;">
+        <input type="text" id="calc-display" readonly style="width:100%;height:40px;font-size:20px;text-align:right;margin-bottom:10px;border:2px inset;background:#fff;padding:5px;box-sizing:border-box;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;">
+          <button onclick="calcClick('7')" style="padding:10px;font-size:16px;">7</button>
+          <button onclick="calcClick('8')" style="padding:10px;font-size:16px;">8</button>
+          <button onclick="calcClick('9')" style="padding:10px;font-size:16px;">9</button>
+          <button onclick="calcClick('/')" style="padding:10px;font-size:16px;">/</button>
+          <button onclick="calcClick('4')" style="padding:10px;font-size:16px;">4</button>
+          <button onclick="calcClick('5')" style="padding:10px;font-size:16px;">5</button>
+          <button onclick="calcClick('6')" style="padding:10px;font-size:16px;">6</button>
+          <button onclick="calcClick('*')" style="padding:10px;font-size:16px;">*</button>
+          <button onclick="calcClick('1')" style="padding:10px;font-size:16px;">1</button>
+          <button onclick="calcClick('2')" style="padding:10px;font-size:16px;">2</button>
+          <button onclick="calcClick('3')" style="padding:10px;font-size:16px;">3</button>
+          <button onclick="calcClick('-')" style="padding:10px;font-size:16px;">-</button>
+          <button onclick="calcClick('0')" style="padding:10px;font-size:16px;">0</button>
+          <button onclick="calcClick('.')" style="padding:10px;font-size:16px;">.</button>
+          <button onclick="calcEquals()" style="padding:10px;font-size:16px;">=</button>
+          <button onclick="calcClick('+')" style="padding:10px;font-size:16px;">+</button>
+          <button onclick="calcClear()" style="padding:10px;font-size:16px;grid-column:span 2;">C</button>
+          <button onclick="calcBackspace()" style="padding:10px;font-size:16px;grid-column:span 2;">⌫</button>
+        </div>
+      </div>
+    `
+  },
+  'paint': {
+    title: 'Paint',
+    content: `
+      <div style="display:flex;flex-direction:column;height:100%;background:#ECE9D8;">
+        <div style="background:#ECE9D8;padding:5px;border-bottom:1px solid #999;display:flex;gap:5px;align-items:center;">
+          <input type="color" id="paint-color" value="#000000" style="width:40px;height:30px;">
+          <label>Size:</label>
+          <input type="range" id="paint-size" min="1" max="20" value="3" style="width:100px;">
+          <button onclick="clearCanvas()" style="padding:4px 10px;">Clear</button>
+          <button onclick="fillCanvas()" style="padding:4px 10px;">Fill</button>
+        </div>
+        <canvas id="paint-canvas" style="flex:1;background:#fff;cursor:crosshair;"></canvas>
+      </div>
+    `
+  },
+  'minesweeper': {
+    title: 'Minesweeper',
+    content: `
+      <div style="background:#ECE9D8;padding:10px;">
+        <div style="text-align:center;margin-bottom:10px;">
+          <button onclick="initMinesweeper()" style="padding:5px 15px;font-size:16px;">🙂 New Game</button>
+          <div style="margin-top:5px;">Mines: <span id="mines-count">10</span></div>
+        </div>
+        <div id="minesweeper-grid" style="display:inline-block;background:#999;border:3px outset #ECE9D8;"></div>
+      </div>
+    `
+  },
+  'solitaire': {
+    title: 'Solitaire',
+    content: `
+      <div style="background:#0a8000;padding:20px;text-align:center;height:100%;">
+        <h2 style="color:#fff;margin-bottom:20px;">🃏 Solitaire</h2>
+        <button onclick="alert('Solitaire game starting...')" style="padding:10px 20px;font-size:16px;">New Game</button>
+        <p style="color:#fff;margin-top:20px;">Classic Windows Solitaire</p>
+      </div>
+    `
+  },
+  'media-player': {
+    title: 'Windows Media Player',
+    content: `
+      <div style="background:linear-gradient(to bottom,#0c3d6e,#000);padding:15px;color:#fff;height:100%;">
+        <h3 style="text-align:center;margin-bottom:15px;">🎵 Media Player</h3>
+        <div style="background:#000;padding:10px;border-radius:5px;margin-bottom:10px;">
+          <input type="text" id="media-url" placeholder="Enter YouTube/Media URL" style="width:100%;padding:8px;box-sizing:border-box;margin-bottom:5px;">
+          <button onclick="loadMedia()" style="padding:6px 15px;">Load</button>
+        </div>
+        <div id="media-container" style="background:#000;min-height:200px;display:flex;align-items:center;justify-content:center;color:#666;">
+          No media loaded
+        </div>
+        <div style="text-align:center;margin-top:10px;">
+          <button onclick="alert('Play')" style="padding:8px 15px;margin:2px;">▶️</button>
+          <button onclick="alert('Pause')" style="padding:8px 15px;margin:2px;">⏸️</button>
+          <button onclick="alert('Stop')" style="padding:8px 15px;margin:2px;">⏹️</button>
+        </div>
+      </div>
+    `
+  },
   'my-computer': {
     title: 'My Computer',
     content: `
@@ -171,6 +269,7 @@ function createWindow(app, width = defaultWindowWidth, height = defaultWindowHei
   document.getElementById('desktop').appendChild(window);
 activeWindow = window;
   window.addEventListener("mousedown", ()=>{ activeWindow = window; });
+  playOpenSound();
 
   if(app === 'psp-emu' || app === 'google-chrome'){
     window.classList.add('maximized');
@@ -179,7 +278,16 @@ activeWindow = window;
   let isDragging=false;
   let startX,startY,startLeft,startTop;
 
-  window.querySelector('.window-header').addEventListener('mousedown',function(e){
+  const header = window.querySelector('.window-header');
+
+  // Double-click to maximize
+  header.addEventListener('dblclick', function(){
+    if(app !== 'psp-emu' && app !== 'google-chrome'){
+      window.classList.toggle('maximized');
+    }
+  });
+
+  header.addEventListener('mousedown',function(e){
     if(app !== 'psp-emu' && app !== 'google-chrome'){
       isDragging=true;
       startX=e.clientX;
@@ -203,6 +311,7 @@ activeWindow = window;
   });
 
   window.querySelector('.close-btn').addEventListener('click',function(){
+    playCloseSound();
     window.remove();
     removeTaskbarItem(window);
   });
@@ -348,10 +457,354 @@ function updateClock(){
     displayHours = ((h % 12) || 12).toString().padStart(2, '0');
     suffix = h >= 12 ? ' PM' : ' AM';
   }
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const dayName = days[israelTime.getDay()];
+  const date = israelTime.getDate().toString().padStart(2, '0');
+  const month = (israelTime.getMonth() + 1).toString().padStart(2, '0');
   document.querySelector('.clock').textContent = `${displayHours}:${minutes}${suffix}`;
+  document.querySelector('.clock').title = `${dayName}, ${date}/${month}/${israelTime.getFullYear()}`;
 }
 setInterval(updateClock,1000);
 updateClock();
+
+// Calculator functions
+function calcClick(val){
+  const display = document.getElementById('calc-display');
+  if(display) display.value += val;
+}
+function calcEquals(){
+  const display = document.getElementById('calc-display');
+  if(display){
+    try{
+      display.value = eval(display.value);
+    }catch(e){
+      display.value = 'Error';
+    }
+  }
+}
+function calcClear(){
+  const display = document.getElementById('calc-display');
+  if(display) display.value = '';
+}
+function calcBackspace(){
+  const display = document.getElementById('calc-display');
+  if(display) display.value = display.value.slice(0, -1);
+}
+
+// Notepad functions
+function saveNotepad(){
+  const text = document.querySelector('.notepad-text');
+  if(text){
+    localStorage.setItem('notepad-content', text.value);
+    alert('Saved to browser storage!');
+  }
+}
+function loadNotepad(){
+  const text = document.querySelector('.notepad-text');
+  if(text){
+    const saved = localStorage.getItem('notepad-content');
+    if(saved){
+      text.value = saved;
+      alert('Loaded from storage!');
+    }else{
+      alert('No saved content found.');
+    }
+  }
+}
+
+// Paint functions
+let painting = false;
+let paintCanvas, paintCtx;
+function initPaint(){
+  paintCanvas = document.getElementById('paint-canvas');
+  if(!paintCanvas) return;
+  paintCanvas.width = paintCanvas.offsetWidth;
+  paintCanvas.height = paintCanvas.offsetHeight;
+  paintCtx = paintCanvas.getContext('2d');
+  paintCtx.lineCap = 'round';
+
+  paintCanvas.addEventListener('mousedown', e => {
+    painting = true;
+    paintCtx.beginPath();
+    const rect = paintCanvas.getBoundingClientRect();
+    paintCtx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+  });
+
+  paintCanvas.addEventListener('mousemove', e => {
+    if(!painting) return;
+    const rect = paintCanvas.getBoundingClientRect();
+    const color = document.getElementById('paint-color');
+    const size = document.getElementById('paint-size');
+    paintCtx.strokeStyle = color ? color.value : '#000';
+    paintCtx.lineWidth = size ? size.value : 3;
+    paintCtx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    paintCtx.stroke();
+  });
+
+  paintCanvas.addEventListener('mouseup', () => painting = false);
+  paintCanvas.addEventListener('mouseleave', () => painting = false);
+}
+function clearCanvas(){
+  if(paintCtx && paintCanvas){
+    paintCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
+  }
+}
+function fillCanvas(){
+  if(paintCtx && paintCanvas){
+    const color = document.getElementById('paint-color');
+    paintCtx.fillStyle = color ? color.value : '#fff';
+    paintCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
+  }
+}
+
+// Minesweeper functions
+let mineGrid = [];
+let mineRows = 9;
+let mineCols = 9;
+let mineCount = 10;
+function initMinesweeper(){
+  const grid = document.getElementById('minesweeper-grid');
+  if(!grid) return;
+  grid.innerHTML = '';
+  mineGrid = [];
+
+  // Create grid
+  for(let i = 0; i < mineRows; i++){
+    mineGrid[i] = [];
+    for(let j = 0; j < mineCols; j++){
+      mineGrid[i][j] = {mine: false, revealed: false, flagged: false, adjacent: 0};
+    }
+  }
+
+  // Place mines
+  let placed = 0;
+  while(placed < mineCount){
+    const r = Math.floor(Math.random() * mineRows);
+    const c = Math.floor(Math.random() * mineCols);
+    if(!mineGrid[r][c].mine){
+      mineGrid[r][c].mine = true;
+      placed++;
+    }
+  }
+
+  // Calculate adjacent mines
+  for(let i = 0; i < mineRows; i++){
+    for(let j = 0; j < mineCols; j++){
+      if(mineGrid[i][j].mine) continue;
+      let count = 0;
+      for(let di = -1; di <= 1; di++){
+        for(let dj = -1; dj <= 1; dj++){
+          const ni = i + di;
+          const nj = j + dj;
+          if(ni >= 0 && ni < mineRows && nj >= 0 && nj < mineCols && mineGrid[ni][nj].mine){
+            count++;
+          }
+        }
+      }
+      mineGrid[i][j].adjacent = count;
+    }
+  }
+
+  // Render grid
+  const table = document.createElement('table');
+  table.style.borderCollapse = 'collapse';
+  for(let i = 0; i < mineRows; i++){
+    const tr = document.createElement('tr');
+    for(let j = 0; j < mineCols; j++){
+      const td = document.createElement('td');
+      td.style.width = '25px';
+      td.style.height = '25px';
+      td.style.border = '1px solid #999';
+      td.style.textAlign = 'center';
+      td.style.cursor = 'pointer';
+      td.style.background = '#c0c0c0';
+      td.style.fontWeight = 'bold';
+      td.dataset.row = i;
+      td.dataset.col = j;
+      td.addEventListener('click', () => revealCell(i, j));
+      td.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        toggleFlag(i, j);
+      });
+      tr.appendChild(td);
+    }
+    table.appendChild(tr);
+  }
+  grid.appendChild(table);
+}
+function revealCell(r, c){
+  if(mineGrid[r][c].revealed || mineGrid[r][c].flagged) return;
+  mineGrid[r][c].revealed = true;
+  const grid = document.getElementById('minesweeper-grid');
+  const cell = grid.querySelector(`td[data-row="${r}"][data-col="${c}"]`);
+  if(!cell) return;
+
+  if(mineGrid[r][c].mine){
+    cell.textContent = '💣';
+    cell.style.background = '#f00';
+    setTimeout(() => {
+      alert('Game Over! You hit a mine!');
+      initMinesweeper();
+    }, 100);
+  }else{
+    cell.style.background = '#fff';
+    if(mineGrid[r][c].adjacent > 0){
+      cell.textContent = mineGrid[r][c].adjacent;
+      const colors = ['', '#0000ff', '#008000', '#ff0000', '#000080', '#800000', '#008080', '#000', '#808080'];
+      cell.style.color = colors[mineGrid[r][c].adjacent];
+    }else{
+      // Reveal adjacent cells
+      for(let di = -1; di <= 1; di++){
+        for(let dj = -1; dj <= 1; dj++){
+          const ni = r + di;
+          const nj = c + dj;
+          if(ni >= 0 && ni < mineRows && nj >= 0 && nj < mineCols){
+            revealCell(ni, nj);
+          }
+        }
+      }
+    }
+  }
+}
+function toggleFlag(r, c){
+  if(mineGrid[r][c].revealed) return;
+  mineGrid[r][c].flagged = !mineGrid[r][c].flagged;
+  const grid = document.getElementById('minesweeper-grid');
+  const cell = grid.querySelector(`td[data-row="${r}"][data-col="${c}"]`);
+  if(cell){
+    cell.textContent = mineGrid[r][c].flagged ? '🚩' : '';
+  }
+}
+
+// Media Player function
+function loadMedia(){
+  const url = document.getElementById('media-url');
+  const container = document.getElementById('media-container');
+  if(url && container && url.value){
+    if(url.value.includes('youtube.com') || url.value.includes('youtu.be')){
+      let videoId = '';
+      if(url.value.includes('watch?v=')){
+        videoId = url.value.split('watch?v=')[1].split('&')[0];
+      }else if(url.value.includes('youtu.be/')){
+        videoId = url.value.split('youtu.be/')[1].split('?')[0];
+      }
+      if(videoId){
+        container.innerHTML = `<iframe width="100%" height="300" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+      }
+    }else{
+      container.innerHTML = `<video width="100%" height="300" controls><source src="${url.value}">Your browser does not support video.</video>`;
+    }
+  }
+}
+
+// Save and load preferences
+function savePreferences(){
+  const prefs = {
+    wallpaper: document.getElementById('desktop').style.backgroundImage,
+    use24Hour: use24Hour,
+    defaultWindowWidth: defaultWindowWidth,
+    defaultWindowHeight: defaultWindowHeight
+  };
+  localStorage.setItem('xp-preferences', JSON.stringify(prefs));
+}
+function loadPreferences(){
+  const saved = localStorage.getItem('xp-preferences');
+  if(saved){
+    const prefs = JSON.parse(saved);
+    if(prefs.wallpaper) document.getElementById('desktop').style.backgroundImage = prefs.wallpaper;
+    if(prefs.use24Hour !== undefined) use24Hour = prefs.use24Hour;
+    if(prefs.defaultWindowWidth) defaultWindowWidth = prefs.defaultWindowWidth;
+    if(prefs.defaultWindowHeight) defaultWindowHeight = prefs.defaultWindowHeight;
+  }
+  // Load theme
+  const theme = localStorage.getItem('xp-theme');
+  const themes = {
+    'blue': {taskbar: 'linear-gradient(to bottom,#2584ff 0%,#0254cc 100%)'},
+    'olive': {taskbar: 'linear-gradient(to bottom,#b4c99c 0%,#99b578 100%)'},
+    'silver': {taskbar: 'linear-gradient(to bottom,#c1c9d3 0%,#a5adb8 100%)'}
+  };
+  if(theme && themes[theme]){
+    document.querySelector('.taskbar').style.background = themes[theme].taskbar;
+  }
+}
+
+// Screensaver
+let screensaverTimeout;
+let screensaverActive = false;
+function resetScreensaver(){
+  clearTimeout(screensaverTimeout);
+  if(screensaverActive){
+    const ss = document.getElementById('screensaver');
+    if(ss) ss.remove();
+    screensaverActive = false;
+  }
+  screensaverTimeout = setTimeout(showScreensaver, 300000); // 5 minutes
+}
+function showScreensaver(){
+  if(screensaverActive) return;
+  screensaverActive = true;
+  const ss = document.createElement('div');
+  ss.id = 'screensaver';
+  ss.style.position = 'fixed';
+  ss.style.top = '0';
+  ss.style.left = '0';
+  ss.style.width = '100vw';
+  ss.style.height = '100vh';
+  ss.style.background = '#000';
+  ss.style.zIndex = '100000';
+  ss.style.display = 'flex';
+  ss.style.alignItems = 'center';
+  ss.style.justifyContent = 'center';
+  ss.style.color = '#0f0';
+  ss.style.fontSize = '48px';
+  ss.style.fontFamily = 'Arial';
+  ss.innerHTML = '<div style="animation: float 3s ease-in-out infinite;">Windows XP</div><style>@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}</style>';
+  ss.addEventListener('click', resetScreensaver);
+  ss.addEventListener('mousemove', resetScreensaver);
+  document.body.appendChild(ss);
+}
+document.addEventListener('mousemove', resetScreensaver);
+document.addEventListener('keydown', resetScreensaver);
+document.addEventListener('click', resetScreensaver);
+resetScreensaver();
+
+// Simple sound effects using Web Audio API
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+function playSound(frequency, duration, type = 'sine'){
+  try{
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    oscillator.frequency.value = frequency;
+    oscillator.type = type;
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + duration);
+  }catch(e){
+    // Silently fail if audio not supported
+  }
+}
+function playOpenSound(){
+  playSound(800, 0.1);
+}
+function playCloseSound(){
+  playSound(600, 0.1);
+}
+function playClickSound(){
+  playSound(1000, 0.05);
+}
+function playErrorSound(){
+  playSound(200, 0.2, 'square');
+}
+
+// Load preferences on start
+window.addEventListener('load', () => {
+  loadPreferences();
+  setTimeout(initPaint, 500);
+  setTimeout(initMinesweeper, 500);
+});
 const APP_VERSION = '1.0.0';
 window.addEventListener('DOMContentLoaded', function () {
   const contextMenu = document.getElementById('custom-menu');
@@ -463,6 +916,22 @@ window.addEventListener('DOMContentLoaded', function () {
     menuButton.style.cursor = menuButtonMovable ? 'move' : 'pointer';
     contextMenu.style.display = 'none';
   });
+  document.getElementById('menu-theme').addEventListener('click', function () {
+    const themes = {
+      'blue': {taskbar: 'linear-gradient(to bottom,#2584ff 0%,#0254cc 100%)', name: 'Classic Blue'},
+      'olive': {taskbar: 'linear-gradient(to bottom,#b4c99c 0%,#99b578 100%)', name: 'Olive Green'},
+      'silver': {taskbar: 'linear-gradient(to bottom,#c1c9d3 0%,#a5adb8 100%)', name: 'Silver'}
+    };
+    const choice = prompt('Choose theme:\n1 - Classic Blue\n2 - Olive Green\n3 - Silver', '1');
+    const themeMap = {'1': 'blue', '2': 'olive', '3': 'silver'};
+    const theme = themeMap[choice];
+    if(theme && themes[theme]){
+      document.querySelector('.taskbar').style.background = themes[theme].taskbar;
+      localStorage.setItem('xp-theme', theme);
+      alert('Theme changed to ' + themes[theme].name);
+    }
+    contextMenu.style.display = 'none';
+  });
   document.getElementById('menu-minimize').addEventListener('click', function () {
     if (activeWindow) {
       activeWindow.classList.add('minimized');
@@ -495,6 +964,7 @@ window.addEventListener('DOMContentLoaded', function () {
     <li id="menu-refresh">Refresh</li>
     <li id="menu-top">Toggle On Top</li>
     <li id="menu-size">Set Window Size...</li>
+    <li id="menu-theme">Change Theme...</li>
     <li id="menu-move">Move Menu Button</li>
     <li id="menu-wallpaper">Change Wallpaper...</li>
     <li id="menu-about">About</li>
