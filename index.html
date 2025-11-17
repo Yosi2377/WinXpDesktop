@@ -687,17 +687,12 @@ activeWindow = window;
       initMinesweeper();
     } else if(app === 'solitaire') {
       initSolitaire();
-    } else if(app === 'snake') {
-      initSnake();
     } else if(app === 'tictactoe') {
       initTicTacToe();
-    } else if(app === 'pong') {
-      initPong();
-    } else if(app === 'breakout') {
-      initBreakout();
     } else if(app === 'game-2048') {
       init2048();
     }
+    // Note: Snake, Pong, and Breakout don't need init - they start when user clicks Start button
   }, 100);
 
   return window;
