@@ -416,7 +416,7 @@
         <div id="cmd-output" style="flex:1;padding:10px;overflow-y:auto;"></div>
         <div style="padding:10px;display:flex;align-items:center;border-top:1px solid #333;">
           <span id="cmd-prompt">C:\\Users\\&gt;</span>
-          <input type="text" id="cmd-input" onkeydown="if(event.key==='Enter')executeCommand()" style="flex:1;background:transparent;border:none;color:#c0c0c0;outline:none;font-family:inherit;font-size:inherit;margin-left:5px;">
+          <input type="text" id="cmd-input" onkeydown="cmdKeyHandler(event)" style="flex:1;background:transparent;border:none;color:#c0c0c0;outline:none;font-family:inherit;font-size:inherit;margin-left:5px;">
         </div>
       </div>
     `
@@ -681,6 +681,22 @@ activeWindow = window;
     } else if(app === 'cmd') {
       const prompt = window.querySelector('#cmd-prompt');
       if(prompt) prompt.textContent = cmdCurrentPath + '>';
+    } else if(app === 'paint') {
+      initPaint();
+    } else if(app === 'minesweeper') {
+      initMinesweeper();
+    } else if(app === 'solitaire') {
+      initSolitaire();
+    } else if(app === 'snake') {
+      initSnake();
+    } else if(app === 'tictactoe') {
+      initTicTacToe();
+    } else if(app === 'pong') {
+      initPong();
+    } else if(app === 'breakout') {
+      initBreakout();
+    } else if(app === 'game-2048') {
+      init2048();
     }
   }, 100);
 
@@ -2152,6 +2168,47 @@ let cmdHistory = [];
 let cmdHistoryIndex = 0;
 let cmdCurrentPath = 'C:\\My Documents';
 
+function cmdKeyHandler(event){
+  const input = document.getElementById('cmd-input');
+  if(!input) return;
+
+  if(event.key === 'Enter'){
+    executeCommand();
+  } else if(event.key === 'ArrowUp'){
+    event.preventDefault();
+    if(cmdHistoryIndex > 0){
+      cmdHistoryIndex--;
+      input.value = cmdHistory[cmdHistoryIndex] || '';
+    }
+  } else if(event.key === 'ArrowDown'){
+    event.preventDefault();
+    if(cmdHistoryIndex < cmdHistory.length - 1){
+      cmdHistoryIndex++;
+      input.value = cmdHistory[cmdHistoryIndex] || '';
+    } else if(cmdHistoryIndex === cmdHistory.length - 1){
+      cmdHistoryIndex = cmdHistory.length;
+      input.value = '';
+    }
+  } else if(event.key === 'Tab'){
+    event.preventDefault();
+    // Auto-complete file/folder names
+    const partial = input.value.toLowerCase();
+    const items = vfs.listDirectory(cmdCurrentPath);
+    if(items){
+      const matches = Object.keys(items).filter(name => name.toLowerCase().startsWith(partial));
+      if(matches.length === 1){
+        input.value = matches[0];
+      } else if(matches.length > 1){
+        const output = document.getElementById('cmd-output');
+        if(output){
+          output.innerHTML += `<div style="margin-bottom:10px;">${matches.join('  ')}</div>`;
+          output.scrollTop = output.scrollHeight;
+        }
+      }
+    }
+  }
+}
+
 function executeCommand(){
   const input = document.getElementById('cmd-input');
   const output = document.getElementById('cmd-output');
@@ -2174,7 +2231,44 @@ function executeCommand(){
   let result = '';
   switch(cmd){
     case 'help':
-      result = 'Available commands:<br>help - Show this help<br>dir - List directory contents<br>cd [path] - Change directory<br>mkdir [name] - Create directory<br>rmdir [name] - Remove directory<br>type [file] - Display file contents<br>del [file] - Delete file<br>copy [src] [dst] - Copy file<br>move [src] [dst] - Move file<br>rename [old] [new] - Rename file<br>cls - Clear screen<br>date - Show current date<br>time - Show current time<br>ver - Show system version<br>echo [msg] - Display message<br>calc - Open calculator<br>notepad - Open notepad<br>explorer - Open file explorer<br>exit - Close window';
+      result = `<strong style="color:#00ff00;">Available Commands:</strong><br><br>
+<strong>File Operations:</strong><br>
+  dir - List directory contents<br>
+  cd [path] - Change directory<br>
+  mkdir [name] - Create directory<br>
+  rmdir [name] - Remove directory<br>
+  type [file] - Display file contents<br>
+  del [file] - Delete file<br>
+  copy [src] [dst] - Copy file<br>
+  move [src] [dst] - Move file<br>
+  rename [old] [new] - Rename file<br>
+  tree - Display directory tree<br>
+  find [text] - Search for text in files<br>
+  attrib - Display file attributes<br><br>
+<strong>System Information:</strong><br>
+  ver - Show system version<br>
+  systeminfo - Display detailed system info<br>
+  whoami - Display current user<br>
+  hostname - Display computer name<br>
+  date - Show current date<br>
+  time - Show current time<br>
+  path - Display PATH variable<br><br>
+<strong>Network:</strong><br>
+  ipconfig - Display IP configuration<br>
+  ping [host] - Ping a host<br><br>
+<strong>Process Management:</strong><br>
+  tasklist - List running processes<br>
+  start [app] - Start an application<br><br>
+<strong>Utilities:</strong><br>
+  echo [msg] - Display message<br>
+  cls - Clear screen<br>
+  color [attr] - Change console colors (e.g., color 0A)<br>
+  calc - Open calculator<br>
+  notepad - Open notepad<br>
+  paint - Open paint<br>
+  explorer - Open file explorer<br>
+  exit - Close window<br>
+  help - Show this help`;
       break;
     case 'dir':
       const items = vfs.listDirectory(cmdCurrentPath);
@@ -2295,6 +2389,209 @@ function executeCommand(){
     case 'explorer':
       createWindow('file-explorer');
       result = 'Opening File Explorer...';
+      break;
+    case 'copy':
+      if(args.length < 2){
+        result = 'The syntax of the command is incorrect.<br>Usage: copy [source] [destination]';
+      } else {
+        const sourceFile = vfs.readFile(cmdCurrentPath, args[0]);
+        if(sourceFile){
+          if(vfs.createFile(cmdCurrentPath, args[1], sourceFile.content, sourceFile.fileType)){
+            result = `Copied ${args[0]} to ${args[1]}`;
+          } else {
+            result = 'Failed to copy file.';
+          }
+        } else {
+          result = 'The system cannot find the file specified.';
+        }
+      }
+      break;
+    case 'move':
+      if(args.length < 2){
+        result = 'The syntax of the command is incorrect.<br>Usage: move [source] [destination]';
+      } else {
+        const sourceFile = vfs.readFile(cmdCurrentPath, args[0]);
+        if(sourceFile){
+          if(vfs.createFile(cmdCurrentPath, args[1], sourceFile.content, sourceFile.fileType)){
+            vfs.deleteItem(cmdCurrentPath, args[0]);
+            result = `Moved ${args[0]} to ${args[1]}`;
+          } else {
+            result = 'Failed to move file.';
+          }
+        } else {
+          result = 'The system cannot find the file specified.';
+        }
+      }
+      break;
+    case 'tree':
+      result = `Directory structure of ${cmdCurrentPath}<br><br>`;
+      const treeItems = vfs.listDirectory(cmdCurrentPath);
+      if(treeItems){
+        Object.keys(treeItems).forEach((name, index) => {
+          const item = treeItems[name];
+          const isLast = index === Object.keys(treeItems).length - 1;
+          const prefix = isLast ? '└── ' : '├── ';
+          const icon = item.type === 'folder' ? '📁' : '📄';
+          result += `${prefix}${icon} ${name}<br>`;
+        });
+      }
+      break;
+    case 'find':
+      if(args.length === 0){
+        result = 'The syntax of the command is incorrect.<br>Usage: find [text]';
+      } else {
+        const searchText = args.join(' ').toLowerCase();
+        const items = vfs.listDirectory(cmdCurrentPath);
+        let found = false;
+        result = `Searching for "${searchText}" in ${cmdCurrentPath}<br><br>`;
+        if(items){
+          Object.keys(items).forEach(name => {
+            const item = items[name];
+            if(item.type === 'file' && item.content){
+              const lines = item.content.split('\n');
+              lines.forEach((line, lineNum) => {
+                if(line.toLowerCase().includes(searchText)){
+                  result += `${name} (line ${lineNum + 1}): ${line}<br>`;
+                  found = true;
+                }
+              });
+            }
+          });
+        }
+        if(!found){
+          result += 'No matches found.';
+        }
+      }
+      break;
+    case 'whoami':
+      result = 'WINXP\\User';
+      break;
+    case 'hostname':
+      result = 'WINXP-SIMULATOR';
+      break;
+    case 'systeminfo':
+      result = `Host Name:                 WINXP-SIMULATOR<br>
+OS Name:                   Microsoft Windows XP Professional<br>
+OS Version:                5.1.2600 Service Pack 3 Build 2600<br>
+OS Manufacturer:           Microsoft Corporation<br>
+System Type:               x86-based PC<br>
+Processor:                 Intel(R) Pentium(R) 4 CPU 3.00GHz<br>
+Total Physical Memory:     512 MB<br>
+Available Physical Memory: ${Math.floor(Math.random() * 200 + 100)} MB<br>
+Virtual Memory:            1024 MB<br>
+Page File Location:        C:\\pagefile.sys`;
+      break;
+    case 'tasklist':
+      result = `Image Name                     PID Session Name        Session#    Mem Usage<br>`;
+      result += `========================= ======== ================ =========== ============<br>`;
+      result += `System Idle Process              0 Services                   0         24 K<br>`;
+      result += `System                           4 Services                   0        236 K<br>`;
+      result += `smss.exe                       368 Services                   0        416 K<br>`;
+      result += `csrss.exe                      596 Console                    0      4,556 K<br>`;
+      result += `winlogon.exe                   620 Console                    0      2,800 K<br>`;
+      result += `explorer.exe                  1484 Console                    0     14,228 K<br>`;
+      const windows = document.querySelectorAll('.window');
+      windows.forEach((w, i) => {
+        const title = w.querySelector('.window-header span').textContent;
+        const pid = 2000 + i;
+        const mem = Math.floor(Math.random() * 10000 + 5000);
+        result += `${title.padEnd(30)} ${pid.toString().padStart(8)} Console         ${' '.repeat(11)}0 ${mem.toString().padStart(9)} K<br>`;
+      });
+      break;
+    case 'ipconfig':
+      result = `Windows IP Configuration<br><br>`;
+      result += `Ethernet adapter Local Area Connection:<br><br>`;
+      result += `   Connection-specific DNS Suffix  . :<br>`;
+      result += `   IP Address. . . . . . . . . . . . : 192.168.1.${Math.floor(Math.random() * 200 + 10)}<br>`;
+      result += `   Subnet Mask . . . . . . . . . . . : 255.255.255.0<br>`;
+      result += `   Default Gateway . . . . . . . . . : 192.168.1.1`;
+      break;
+    case 'ping':
+      if(args.length === 0){
+        result = 'Usage: ping [hostname]';
+      } else {
+        const host = args[0];
+        result = `Pinging ${host} with 32 bytes of data:<br><br>`;
+        for(let i = 0; i < 4; i++){
+          const time = Math.floor(Math.random() * 50 + 10);
+          result += `Reply from ${host}: bytes=32 time=${time}ms TTL=64<br>`;
+        }
+        result += `<br>Ping statistics for ${host}:<br>`;
+        result += `    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss)`;
+      }
+      break;
+    case 'color':
+      if(args.length === 0){
+        result = 'Sets the default console foreground and background colors.<br>Usage: color [attr]<br>Example: color 0A (black background, green text)';
+      } else {
+        const colorCode = args[0].toLowerCase();
+        const cmdOutput = document.getElementById('cmd-output');
+        const cmdInput = document.getElementById('cmd-input');
+        const cmdPrompt = document.getElementById('cmd-prompt');
+        const cmdWin = cmdOutput ? cmdOutput.closest('.window-content').parentElement : null;
+
+        const colors = {
+          '0': '#000', '1': '#000080', '2': '#008000', '3': '#008080',
+          '4': '#800000', '5': '#800080', '6': '#808000', '7': '#c0c0c0',
+          '8': '#808080', '9': '#0000ff', 'a': '#00ff00', 'b': '#00ffff',
+          'c': '#ff0000', 'd': '#ff00ff', 'e': '#ffff00', 'f': '#ffffff'
+        };
+
+        if(colorCode.length === 2){
+          const bg = colors[colorCode[0]];
+          const fg = colors[colorCode[1]];
+          if(bg && fg && cmdWin){
+            cmdWin.querySelector('.window-content').style.background = bg;
+            if(cmdOutput) cmdOutput.style.color = fg;
+            if(cmdInput) cmdInput.style.color = fg;
+            if(cmdPrompt) cmdPrompt.style.color = fg;
+            result = 'Color changed successfully.';
+          } else {
+            result = 'Invalid color code.';
+          }
+        } else {
+          result = 'Invalid color code. Use format: color [bg][fg] (e.g., 0A)';
+        }
+      }
+      break;
+    case 'attrib':
+      if(args.length === 0){
+        const items = vfs.listDirectory(cmdCurrentPath);
+        if(items){
+          result = '';
+          Object.keys(items).forEach(name => {
+            const attr = items[name].type === 'folder' ? 'D' : 'A';
+            result += `${attr}         ${cmdCurrentPath}\\${name}<br>`;
+          });
+        }
+      } else {
+        result = 'Attribute display for specific files is not yet implemented.';
+      }
+      break;
+    case 'path':
+      result = `PATH=${cmdCurrentPath};C:\\Windows\\System32;C:\\Windows;C:\\Program Files`;
+      break;
+    case 'start':
+      if(args.length === 0){
+        result = 'Usage: start [application]<br>Examples: start calc, start notepad, start paint';
+      } else {
+        const appName = args[0].toLowerCase();
+        const appMap = {
+          'calc': 'calculator',
+          'calculator': 'calculator',
+          'notepad': 'notepad',
+          'paint': 'paint',
+          'minesweeper': 'minesweeper',
+          'solitaire': 'solitaire',
+          'explorer': 'file-explorer'
+        };
+        if(appMap[appName]){
+          createWindow(appMap[appName]);
+          result = `Starting ${appName}...`;
+        } else {
+          result = `Application '${appName}' not found.`;
+        }
+      }
       break;
     case 'exit':
       if(activeWindow) activeWindow.remove();
