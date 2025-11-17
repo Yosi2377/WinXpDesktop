@@ -582,6 +582,165 @@
         </div>
       </div>
     `
+  },
+  'mp3-player': {
+    title: 'MP3 Player',
+    content: `
+      <div style="background:linear-gradient(to bottom,#1e3a5f,#0d1b2a);padding:20px;color:#fff;height:100%;display:flex;flex-direction:column;">
+        <h3 style="text-align:center;margin:0 0 15px 0;">🎵 MP3 Player</h3>
+        <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:8px;margin-bottom:15px;">
+          <input type="file" id="mp3-file" accept="audio/*" style="margin-bottom:10px;color:#fff;">
+          <div id="mp3-info" style="font-size:14px;margin-top:10px;color:#aaa;">No file loaded</div>
+        </div>
+        <audio id="mp3-audio" style="width:100%;margin-bottom:15px;" controls></audio>
+        <div id="mp3-playlist" style="flex:1;background:rgba(0,0,0,0.3);padding:10px;border-radius:5px;overflow-y:auto;margin-bottom:10px;">
+          <div style="color:#888;text-align:center;padding:20px;">Playlist Empty</div>
+        </div>
+        <div style="text-align:center;">
+          <button onclick="clearPlaylist()" style="padding:8px 15px;background:#c0392b;color:#fff;border:none;border-radius:4px;cursor:pointer;">Clear Playlist</button>
+        </div>
+      </div>
+    `
+  },
+  'image-viewer': {
+    title: 'Image Viewer',
+    content: `
+      <div style="background:#2c2c2c;padding:15px;height:100%;display:flex;flex-direction:column;color:#fff;">
+        <div style="background:#1a1a1a;padding:10px;margin-bottom:10px;border-radius:5px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <input type="file" id="image-file" accept="image/*" style="color:#fff;">
+          <button onclick="rotateImage(90)" style="padding:6px 12px;">↻ Rotate Right</button>
+          <button onclick="rotateImage(-90)" style="padding:6px 12px;">↺ Rotate Left</button>
+          <button onclick="zoomImage(1.2)" style="padding:6px 12px;">🔍+ Zoom In</button>
+          <button onclick="zoomImage(0.8)" style="padding:6px 12px;">🔍- Zoom Out</button>
+          <button onclick="resetImage()" style="padding:6px 12px;">Reset</button>
+        </div>
+        <div id="image-container" style="flex:1;background:#000;display:flex;align-items:center;justify-content:center;overflow:auto;border-radius:5px;position:relative;">
+          <div style="color:#666;text-align:center;">No image loaded<br><small>Select an image file above</small></div>
+        </div>
+      </div>
+    `
+  },
+  'advanced-editor': {
+    title: 'Advanced Text Editor',
+    content: `
+      <div style="display:flex;flex-direction:column;height:100%;background:#1e1e1e;color:#d4d4d4;">
+        <div style="background:#2d2d2d;padding:8px;border-bottom:1px solid #3e3e3e;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <button onclick="editorNew()" style="padding:4px 10px;">New</button>
+          <button onclick="editorSave()" style="padding:4px 10px;">Save</button>
+          <button onclick="editorLoad()" style="padding:4px 10px;">Load</button>
+          <div style="border-left:1px solid #555;height:20px;"></div>
+          <select id="editor-lang" onchange="updateEditorHighlight()" style="padding:4px;">
+            <option value="javascript">JavaScript</option>
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+            <option value="python">Python</option>
+            <option value="text">Plain Text</option>
+          </select>
+          <label><input type="checkbox" id="editor-wrap" onchange="toggleWrap()"> Word Wrap</label>
+          <span id="editor-stats" style="margin-left:auto;font-size:11px;color:#999;">Lines: 1 | Words: 0 | Chars: 0</span>
+        </div>
+        <div style="flex:1;position:relative;overflow:hidden;">
+          <div id="editor-line-numbers" style="position:absolute;left:0;top:0;bottom:0;width:40px;background:#1e1e1e;border-right:1px solid #3e3e3e;padding:10px 5px;font-family:Consolas,monospace;font-size:13px;color:#858585;overflow:hidden;user-select:none;">1</div>
+          <textarea id="advanced-editor-text" oninput="updateEditorStats()" style="position:absolute;left:40px;right:0;top:0;bottom:0;border:none;padding:10px;font-family:Consolas,monospace;font-size:13px;resize:none;outline:none;background:#1e1e1e;color:#d4d4d4;white-space:pre;overflow-wrap:normal;" spellcheck="false"></textarea>
+        </div>
+      </div>
+    `
+  },
+  'scientific-calc': {
+    title: 'Scientific Calculator',
+    content: `
+      <div style="background:#2c3e50;padding:15px;width:350px;">
+        <input type="text" id="sci-calc-display" readonly style="width:100%;height:50px;font-size:24px;text-align:right;margin-bottom:10px;border:2px inset;background:#ecf0f1;padding:5px;box-sizing:border-box;">
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:4px;">
+          <button onclick="sciCalcClick('sin')" style="padding:10px;font-size:14px;background:#3498db;color:#fff;">sin</button>
+          <button onclick="sciCalcClick('cos')" style="padding:10px;font-size:14px;background:#3498db;color:#fff;">cos</button>
+          <button onclick="sciCalcClick('tan')" style="padding:10px;font-size:14px;background:#3498db;color:#fff;">tan</button>
+          <button onclick="sciCalcClick('log')" style="padding:10px;font-size:14px;background:#3498db;color:#fff;">log</button>
+          <button onclick="sciCalcClick('ln')" style="padding:10px;font-size:14px;background:#3498db;color:#fff;">ln</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:4px;">
+          <button onclick="sciCalcClick('sqrt')" style="padding:10px;font-size:14px;background:#9b59b6;color:#fff;">√</button>
+          <button onclick="sciCalcClick('pow')" style="padding:10px;font-size:14px;background:#9b59b6;color:#fff;">x²</button>
+          <button onclick="sciCalcClick('(')" style="padding:10px;font-size:14px;background:#95a5a6;color:#fff;">(</button>
+          <button onclick="sciCalcClick(')')" style="padding:10px;font-size:14px;background:#95a5a6;color:#fff;">)</button>
+          <button onclick="sciCalcClear()" style="padding:10px;font-size:14px;background:#e74c3c;color:#fff;">C</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;">
+          <button onclick="sciCalcClick('7')" style="padding:12px;font-size:16px;">7</button>
+          <button onclick="sciCalcClick('8')" style="padding:12px;font-size:16px;">8</button>
+          <button onclick="sciCalcClick('9')" style="padding:12px;font-size:16px;">9</button>
+          <button onclick="sciCalcClick('/')" style="padding:12px;font-size:16px;background:#f39c12;color:#fff;">/</button>
+          <button onclick="sciCalcClick('4')" style="padding:12px;font-size:16px;">4</button>
+          <button onclick="sciCalcClick('5')" style="padding:12px;font-size:16px;">5</button>
+          <button onclick="sciCalcClick('6')" style="padding:12px;font-size:16px;">6</button>
+          <button onclick="sciCalcClick('*')" style="padding:12px;font-size:16px;background:#f39c12;color:#fff;">*</button>
+          <button onclick="sciCalcClick('1')" style="padding:12px;font-size:16px;">1</button>
+          <button onclick="sciCalcClick('2')" style="padding:12px;font-size:16px;">2</button>
+          <button onclick="sciCalcClick('3')" style="padding:12px;font-size:16px;">3</button>
+          <button onclick="sciCalcClick('-')" style="padding:12px;font-size:16px;background:#f39c12;color:#fff;">-</button>
+          <button onclick="sciCalcClick('0')" style="padding:12px;font-size:16px;">0</button>
+          <button onclick="sciCalcClick('.')" style="padding:12px;font-size:16px;">.</button>
+          <button onclick="sciCalcEquals()" style="padding:12px;font-size:16px;background:#27ae60;color:#fff;">=</button>
+          <button onclick="sciCalcClick('+')" style="padding:12px;font-size:16px;background:#f39c12;color:#fff;">+</button>
+        </div>
+      </div>
+    `
+  },
+  'world-clock': {
+    title: 'Clock & Timer',
+    content: `
+      <div style="background:linear-gradient(to bottom,#667eea,#764ba2);padding:20px;color:#fff;height:100%;">
+        <div style="text-align:center;margin-bottom:20px;">
+          <h1 id="clock-time" style="font-size:48px;margin:0;">00:00:00</h1>
+          <div id="clock-date" style="font-size:18px;margin-top:5px;"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+          <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:8px;">
+            <h3 style="margin-top:0;">⏱️ Stopwatch</h3>
+            <div id="stopwatch-display" style="font-size:32px;text-align:center;margin:15px 0;">00:00:00</div>
+            <div style="text-align:center;">
+              <button onclick="startStopwatch()" style="padding:8px 15px;margin:2px;">Start</button>
+              <button onclick="stopStopwatch()" style="padding:8px 15px;margin:2px;">Stop</button>
+              <button onclick="resetStopwatch()" style="padding:8px 15px;margin:2px;">Reset</button>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.1);padding:15px;border-radius:8px;">
+            <h3 style="margin-top:0;">⏲️ Timer</h3>
+            <input type="number" id="timer-input" placeholder="Seconds" style="width:100%;padding:8px;margin-bottom:10px;box-sizing:border-box;">
+            <div id="timer-display" style="font-size:32px;text-align:center;margin:15px 0;">00:00</div>
+            <div style="text-align:center;">
+              <button onclick="startTimer()" style="padding:8px 15px;margin:2px;">Start</button>
+              <button onclick="stopTimer()" style="padding:8px 15px;margin:2px;">Stop</button>
+              <button onclick="resetTimer()" style="padding:8px 15px;margin:2px;">Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+  'todo-list': {
+    title: 'To-Do List',
+    content: `
+      <div style="background:#f8f9fa;padding:20px;height:100%;display:flex;flex-direction:column;">
+        <h2 style="margin:0 0 15px 0;color:#333;">📝 To-Do List</h2>
+        <div style="display:flex;gap:5px;margin-bottom:15px;">
+          <input type="text" id="todo-input" placeholder="Add a new task..." style="flex:1;padding:10px;border:1px solid #ddd;border-radius:4px;font-size:14px;" onkeydown="if(event.key==='Enter')addTodo()">
+          <button onclick="addTodo()" style="padding:10px 20px;background:#007bff;color:#fff;border:none;border-radius:4px;cursor:pointer;font-weight:bold;">Add</button>
+        </div>
+        <div style="display:flex;gap:5px;margin-bottom:15px;">
+          <button onclick="filterTodos('all')" id="filter-all" style="padding:6px 12px;background:#6c757d;color:#fff;border:none;border-radius:4px;cursor:pointer;">All</button>
+          <button onclick="filterTodos('active')" id="filter-active" style="padding:6px 12px;background:#f8f9fa;border:1px solid #ddd;border-radius:4px;cursor:pointer;">Active</button>
+          <button onclick="filterTodos('completed')" id="filter-completed" style="padding:6px 12px;background:#f8f9fa;border:1px solid #ddd;border-radius:4px;cursor:pointer;">Completed</button>
+          <button onclick="clearCompleted()" style="padding:6px 12px;background:#dc3545;color:#fff;border:none;border-radius:4px;cursor:pointer;margin-left:auto;">Clear Completed</button>
+        </div>
+        <div id="todo-list" style="flex:1;overflow-y:auto;background:#fff;border:1px solid #ddd;border-radius:4px;padding:10px;">
+          <div style="color:#999;text-align:center;padding:40px 20px;">No tasks yet. Add one above!</div>
+        </div>
+        <div style="margin-top:10px;text-align:center;color:#666;font-size:13px;">
+          <span id="todo-count">0 tasks</span>
+        </div>
+      </div>
+    `
   }
 };
 
@@ -3802,6 +3961,454 @@ class VirtualFileSystem {
 
 // Initialize the file system
 const vfs = new VirtualFileSystem();
+
+// ========== NEW APPLICATIONS FUNCTIONS ==========
+
+// MP3 Player functions
+let mp3Playlist = [];
+document.addEventListener('DOMContentLoaded', function(){
+  const fileInput = document.getElementById('mp3-file');
+  if(fileInput){
+    fileInput.addEventListener('change', function(e){
+      const file = e.target.files[0];
+      if(file){
+        const audio = document.getElementById('mp3-audio');
+        const info = document.getElementById('mp3-info');
+        const url = URL.createObjectURL(file);
+        audio.src = url;
+        info.textContent = `Now playing: ${file.name}`;
+        mp3Playlist.push({name: file.name, url: url});
+        updatePlaylist();
+        playClickSound();
+      }
+    });
+  }
+});
+
+function updatePlaylist(){
+  const playlistDiv = document.getElementById('mp3-playlist');
+  if(!playlistDiv || mp3Playlist.length === 0) return;
+  let html = '';
+  mp3Playlist.forEach((track, i) => {
+    html += `<div style="padding:8px;background:rgba(255,255,255,0.1);margin-bottom:5px;border-radius:4px;cursor:pointer;" onclick="playTrack(${i})">
+      ${i + 1}. ${track.name}
+    </div>`;
+  });
+  playlistDiv.innerHTML = html;
+}
+
+function playTrack(index){
+  if(index >= 0 && index < mp3Playlist.length){
+    const audio = document.getElementById('mp3-audio');
+    const info = document.getElementById('mp3-info');
+    audio.src = mp3Playlist[index].url;
+    audio.play();
+    info.textContent = `Now playing: ${mp3Playlist[index].name}`;
+    playClickSound();
+  }
+}
+
+function clearPlaylist(){
+  mp3Playlist = [];
+  const playlistDiv = document.getElementById('mp3-playlist');
+  if(playlistDiv){
+    playlistDiv.innerHTML = '<div style="color:#888;text-align:center;padding:20px;">Playlist Empty</div>';
+  }
+  const audio = document.getElementById('mp3-audio');
+  if(audio) audio.src = '';
+  const info = document.getElementById('mp3-info');
+  if(info) info.textContent = 'No file loaded';
+  playClickSound();
+}
+
+// Image Viewer functions
+let imageRotation = 0;
+let imageZoom = 1;
+let currentImageSrc = '';
+
+document.addEventListener('DOMContentLoaded', function(){
+  const imageInput = document.getElementById('image-file');
+  if(imageInput){
+    imageInput.addEventListener('change', function(e){
+      const file = e.target.files[0];
+      if(file){
+        const reader = new FileReader();
+        reader.onload = function(event){
+          currentImageSrc = event.target.result;
+          imageRotation = 0;
+          imageZoom = 1;
+          displayImage();
+          playClickSound();
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+});
+
+function displayImage(){
+  const container = document.getElementById('image-container');
+  if(!container || !currentImageSrc) return;
+  container.innerHTML = `<img src="${currentImageSrc}" style="max-width:100%;max-height:100%;transform:rotate(${imageRotation}deg) scale(${imageZoom});transition:transform 0.3s;">`;
+}
+
+function rotateImage(degrees){
+  imageRotation += degrees;
+  displayImage();
+  playClickSound();
+}
+
+function zoomImage(factor){
+  imageZoom *= factor;
+  if(imageZoom < 0.1) imageZoom = 0.1;
+  if(imageZoom > 5) imageZoom = 5;
+  displayImage();
+  playClickSound();
+}
+
+function resetImage(){
+  imageRotation = 0;
+  imageZoom = 1;
+  displayImage();
+  playClickSound();
+}
+
+// Advanced Text Editor functions
+function updateEditorStats(){
+  const text = document.getElementById('advanced-editor-text');
+  const stats = document.getElementById('editor-stats');
+  const lineNumbers = document.getElementById('editor-line-numbers');
+
+  if(!text || !stats) return;
+
+  const content = text.value;
+  const lines = content.split('\\n');
+  const words = content.trim() ? content.trim().split(/\\s+/).length : 0;
+  const chars = content.length;
+
+  stats.textContent = `Lines: ${lines.length} | Words: ${words} | Chars: ${chars}`;
+
+  if(lineNumbers){
+    let lineNums = '';
+    for(let i = 1; i <= lines.length; i++){
+      lineNums += i + '\\n';
+    }
+    lineNumbers.textContent = lineNums;
+  }
+}
+
+function editorNew(){
+  const text = document.getElementById('advanced-editor-text');
+  if(text && confirm('Create new file? Unsaved changes will be lost.')){
+    text.value = '';
+    updateEditorStats();
+    playClickSound();
+  }
+}
+
+function editorSave(){
+  const text = document.getElementById('advanced-editor-text');
+  if(!text) return;
+
+  const filename = prompt('Enter filename:', 'document.txt');
+  if(filename){
+    vfs.createFile(cmdCurrentPath, filename, text.value);
+    alert(`Saved as ${filename}`);
+    playClickSound();
+  }
+}
+
+function editorLoad(){
+  const filename = prompt('Enter filename to load:');
+  if(filename){
+    const file = vfs.readFile(cmdCurrentPath, filename);
+    if(file){
+      const text = document.getElementById('advanced-editor-text');
+      if(text){
+        text.value = file.content;
+        updateEditorStats();
+        playClickSound();
+      }
+    } else {
+      alert('File not found');
+      playErrorSound();
+    }
+  }
+}
+
+function updateEditorHighlight(){
+  // Placeholder for syntax highlighting
+  playClickSound();
+}
+
+function toggleWrap(){
+  const text = document.getElementById('advanced-editor-text');
+  const checkbox = document.getElementById('editor-wrap');
+  if(text && checkbox){
+    text.style.whiteSpace = checkbox.checked ? 'pre-wrap' : 'pre';
+    text.style.overflowWrap = checkbox.checked ? 'break-word' : 'normal';
+    playClickSound();
+  }
+}
+
+// Scientific Calculator functions
+let sciCalcExpression = '';
+
+function sciCalcClick(value){
+  const display = document.getElementById('sci-calc-display');
+  if(!display) return;
+
+  if(value === 'sin' || value === 'cos' || value === 'tan' || value === 'log' || value === 'ln' || value === 'sqrt'){
+    sciCalcExpression += value + '(';
+  } else if(value === 'pow'){
+    sciCalcExpression += '^2';
+  } else {
+    sciCalcExpression += value;
+  }
+
+  display.value = sciCalcExpression;
+  playClickSound();
+}
+
+function sciCalcClear(){
+  sciCalcExpression = '';
+  const display = document.getElementById('sci-calc-display');
+  if(display) display.value = '';
+  playClickSound();
+}
+
+function sciCalcEquals(){
+  const display = document.getElementById('sci-calc-display');
+  if(!display) return;
+
+  try {
+    let expr = sciCalcExpression;
+    expr = expr.replace(/sin\\(/g, 'Math.sin(');
+    expr = expr.replace(/cos\\(/g, 'Math.cos(');
+    expr = expr.replace(/tan\\(/g, 'Math.tan(');
+    expr = expr.replace(/log\\(/g, 'Math.log10(');
+    expr = expr.replace(/ln\\(/g, 'Math.log(');
+    expr = expr.replace(/sqrt\\(/g, 'Math.sqrt(');
+    expr = expr.replace(/\\^2/g, '**2');
+
+    const result = eval(expr);
+    display.value = result;
+    sciCalcExpression = result.toString();
+    playClickSound();
+  } catch(e) {
+    display.value = 'Error';
+    playErrorSound();
+    setTimeout(() => {
+      sciCalcExpression = '';
+      display.value = '';
+    }, 1500);
+  }
+}
+
+// Clock & Timer functions
+let stopwatchInterval = null;
+let stopwatchTime = 0;
+let timerInterval = null;
+let timerTime = 0;
+
+function updateClock(){
+  const timeEl = document.getElementById('clock-time');
+  const dateEl = document.getElementById('clock-date');
+  if(!timeEl) return;
+
+  const now = new Date();
+  timeEl.textContent = now.toLocaleTimeString();
+  if(dateEl){
+    dateEl.textContent = now.toLocaleDateString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
+  }
+}
+
+function startStopwatch(){
+  if(stopwatchInterval) return;
+  stopwatchInterval = setInterval(() => {
+    stopwatchTime++;
+    updateStopwatchDisplay();
+  }, 1000);
+  playClickSound();
+}
+
+function stopStopwatch(){
+  if(stopwatchInterval){
+    clearInterval(stopwatchInterval);
+    stopwatchInterval = null;
+    playClickSound();
+  }
+}
+
+function resetStopwatch(){
+  stopStopwatch();
+  stopwatchTime = 0;
+  updateStopwatchDisplay();
+  playClickSound();
+}
+
+function updateStopwatchDisplay(){
+  const display = document.getElementById('stopwatch-display');
+  if(!display) return;
+  const hours = Math.floor(stopwatchTime / 3600);
+  const minutes = Math.floor((stopwatchTime % 3600) / 60);
+  const seconds = stopwatchTime % 60;
+  display.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+}
+
+function startTimer(){
+  const input = document.getElementById('timer-input');
+  if(!input || !input.value) return;
+
+  if(timerInterval) clearInterval(timerInterval);
+
+  timerTime = parseInt(input.value);
+  timerInterval = setInterval(() => {
+    timerTime--;
+    updateTimerDisplay();
+    if(timerTime <= 0){
+      clearInterval(timerInterval);
+      timerInterval = null;
+      alert('Timer finished!');
+      playErrorSound();
+    }
+  }, 1000);
+  playClickSound();
+}
+
+function stopTimer(){
+  if(timerInterval){
+    clearInterval(timerInterval);
+    timerInterval = null;
+    playClickSound();
+  }
+}
+
+function resetTimer(){
+  stopTimer();
+  timerTime = 0;
+  updateTimerDisplay();
+  playClickSound();
+}
+
+function updateTimerDisplay(){
+  const display = document.getElementById('timer-display');
+  if(!display) return;
+  const minutes = Math.floor(timerTime / 60);
+  const seconds = timerTime % 60;
+  display.textContent = `${pad(minutes)}:${pad(seconds)}`;
+}
+
+function pad(num){
+  return num.toString().padStart(2, '0');
+}
+
+// Todo List functions
+let todos = JSON.parse(localStorage.getItem('todos')) || [];
+let todoFilter = 'all';
+
+function addTodo(){
+  const input = document.getElementById('todo-input');
+  if(!input || !input.value.trim()) return;
+
+  todos.push({
+    id: Date.now(),
+    text: input.value.trim(),
+    completed: false,
+    createdAt: new Date().toISOString()
+  });
+
+  input.value = '';
+  saveTodos();
+  renderTodos();
+  playClickSound();
+}
+
+function toggleTodo(id){
+  const todo = todos.find(t => t.id === id);
+  if(todo){
+    todo.completed = !todo.completed;
+    saveTodos();
+    renderTodos();
+    playClickSound();
+  }
+}
+
+function deleteTodo(id){
+  todos = todos.filter(t => t.id !== id);
+  saveTodos();
+  renderTodos();
+  playClickSound();
+}
+
+function filterTodos(filter){
+  todoFilter = filter;
+  renderTodos();
+
+  ['all', 'active', 'completed'].forEach(f => {
+    const btn = document.getElementById('filter-' + f);
+    if(btn){
+      if(f === filter){
+        btn.style.background = '#6c757d';
+        btn.style.color = '#fff';
+        btn.style.border = 'none';
+      } else {
+        btn.style.background = '#f8f9fa';
+        btn.style.color = '#000';
+        btn.style.border = '1px solid #ddd';
+      }
+    }
+  });
+
+  playClickSound();
+}
+
+function clearCompleted(){
+  todos = todos.filter(t => !t.completed);
+  saveTodos();
+  renderTodos();
+  playClickSound();
+}
+
+function saveTodos(){
+  localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+function renderTodos(){
+  const list = document.getElementById('todo-list');
+  const count = document.getElementById('todo-count');
+  if(!list) return;
+
+  let filteredTodos = todos;
+  if(todoFilter === 'active') filteredTodos = todos.filter(t => !t.completed);
+  if(todoFilter === 'completed') filteredTodos = todos.filter(t => t.completed);
+
+  if(filteredTodos.length === 0){
+    list.innerHTML = '<div style="color:#999;text-align:center;padding:40px 20px;">No tasks yet. Add one above!</div>';
+  } else {
+    let html = '';
+    filteredTodos.forEach(todo => {
+      html += `<div style="padding:10px;border-bottom:1px solid #eee;display:flex;align-items:center;gap:10px;">
+        <input type="checkbox" ${todo.completed ? 'checked' : ''} onchange="toggleTodo(${todo.id})" style="width:18px;height:18px;cursor:pointer;">
+        <span style="flex:1;${todo.completed ? 'text-decoration:line-through;color:#999;' : ''}">${todo.text}</span>
+        <button onclick="deleteTodo(${todo.id})" style="padding:4px 8px;background:#dc3545;color:#fff;border:none;border-radius:3px;cursor:pointer;">Delete</button>
+      </div>`;
+    });
+    list.innerHTML = html;
+  }
+
+  if(count){
+    const activeCount = todos.filter(t => !t.completed).length;
+    count.textContent = `${activeCount} active task${activeCount !== 1 ? 's' : ''}`;
+  }
+}
+
+// Initialize clock updates
+setInterval(updateClock, 1000);
+updateClock();
+
+// Initialize apps when windows are created
+const originalCreateWindow = createWindow;
 
 </script>
 </body></html>
