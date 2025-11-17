@@ -210,20 +210,23 @@
     title: 'My Computer',
     content: `
       <div class="folder-window">
-  <div class="folder-sidebar">System Tasks</div>
+  <div class="folder-sidebar">
+    <div style="font-weight:bold;margin-bottom:10px;">System Tasks</div>
+    <div style="font-size:11px;color:#666;">View system information</div>
+  </div>
   <div class="folder-content">
     <div class="my-computer-content">
-        <div class="drive-icon">
+        <div class="drive-icon" onclick="explorerNavigate('C:\\\\')" style="cursor:pointer;">
           <img src="https://i.imgur.com/Q3SMT9S.png" alt="Local Disk (C:)">
           <div class="drive-label">Local Disk (C:)</div>
         </div>
-        <div class="drive-icon">
-          <img src="https://i.imgur.com/Q3SMT9S.png" alt="Local Disk (D:)">
-          <div class="drive-label">Local Disk (D:)</div>
+        <div class="drive-icon" onclick="createWindow('file-explorer')" style="cursor:pointer;">
+          <img src="https://cdn-icons-png.flaticon.com/512/148/148947.png" alt="File Explorer">
+          <div class="drive-label">File Explorer</div>
         </div>
-        <div class="drive-icon">
-          <img src="https://i.imgur.com/vGZOKOW.png" alt="CD Drive (E:)">
-          <div class="drive-label">CD Drive (E:)</div>
+        <div class="drive-icon" onclick="createWindow('recycle-bin')" style="cursor:pointer;">
+          <img src="https://i.imgur.com/AVKS9Rm.png" alt="Recycle Bin">
+          <div class="drive-label">Recycle Bin</div>
         </div>
       </div>
     </div>
@@ -234,18 +237,13 @@
   'recycle-bin': {
     title: 'Recycle Bin',
     content: `
-      <div class="folder-window">
-  <div class="folder-sidebar">Recycle Bin Tasks</div>
-  <div class="folder-content">
-    <div class="folder-view">
-        <div class="folder-icon">
-          <img src="https://i.imgur.com/AVKS9Rm.png" alt="Empty Recycle Bin">
-          <div class="folder-label">Empty Recycle Bin</div>
+      <div style="display:flex;flex-direction:column;height:100%;background:#fff;">
+        <div style="background:#ECE9D8;padding:5px;border-bottom:1px solid #999;display:flex;gap:5px;">
+          <button onclick="recycleBinRefresh()" style="padding:4px 10px;">⟳ Refresh</button>
+          <button onclick="recycleBinEmpty()" style="padding:4px 10px;background:#ffcccc;">🗑️ Empty Recycle Bin</button>
         </div>
+        <div id="recycle-content" style="flex:1;padding:15px;overflow-y:auto;"></div>
       </div>
-    </div>
-  </div>
-</div>
     `
   },
   'my-documents': {
@@ -427,21 +425,23 @@
     title: 'File Explorer',
     content: `
       <div style="display:flex;flex-direction:column;height:100%;background:#fff;">
-        <div style="background:#ECE9D8;padding:5px;border-bottom:1px solid #999;display:flex;gap:5px;">
+        <div style="background:#ECE9D8;padding:5px;border-bottom:1px solid #999;display:flex;gap:5px;flex-wrap:wrap;">
           <button onclick="explorerBack()" style="padding:4px 10px;">←</button>
           <button onclick="explorerForward()" style="padding:4px 10px;">→</button>
           <button onclick="explorerUp()" style="padding:4px 10px;">↑</button>
-          <input type="text" id="explorer-path" value="C:\\" readonly style="flex:1;padding:4px 8px;border:1px solid #999;">
+          <input type="text" id="explorer-path" value="C:\\" readonly style="flex:1;min-width:150px;padding:4px 8px;border:1px solid #999;">
           <button onclick="explorerRefresh()" style="padding:4px 10px;">⟳</button>
+          <button onclick="explorerNewFile()" style="padding:4px 10px;background:#90EE90;">📄 New File</button>
+          <button onclick="explorerNewFolder()" style="padding:4px 10px;background:#87CEEB;">📁 New Folder</button>
         </div>
         <div style="display:flex;flex:1;overflow:hidden;">
           <div style="width:180px;background:#ECE9D8;border-right:1px solid #999;padding:10px;overflow-y:auto;">
             <div style="font-weight:bold;margin-bottom:10px;">Folders</div>
-            <div onclick="explorerNavigate('Desktop')" style="padding:5px;cursor:pointer;background:#fff;margin-bottom:2px;">📁 Desktop</div>
-            <div onclick="explorerNavigate('My Documents')" style="padding:5px;cursor:pointer;">📁 My Documents</div>
-            <div onclick="explorerNavigate('My Pictures')" style="padding:5px;cursor:pointer;">📁 My Pictures</div>
-            <div onclick="explorerNavigate('My Music')" style="padding:5px;cursor:pointer;">📁 My Music</div>
-            <div onclick="explorerNavigate('Program Files')" style="padding:5px;cursor:pointer;">📁 Program Files</div>
+            <div onclick="explorerNavigate('C:\\\\Desktop')" style="padding:5px;cursor:pointer;margin-bottom:2px;">📁 Desktop</div>
+            <div onclick="explorerNavigate('C:\\\\My Documents')" style="padding:5px;cursor:pointer;">📁 My Documents</div>
+            <div onclick="explorerNavigate('C:\\\\My Pictures')" style="padding:5px;cursor:pointer;">📁 My Pictures</div>
+            <div onclick="explorerNavigate('C:\\\\My Music')" style="padding:5px;cursor:pointer;">📁 My Music</div>
+            <div onclick="explorerNavigate('C:\\\\Program Files')" style="padding:5px;cursor:pointer;">📁 Program Files</div>
           </div>
           <div id="explorer-content" style="flex:1;padding:15px;overflow-y:auto;"></div>
         </div>
@@ -672,6 +672,18 @@ activeWindow = window;
 
   addTaskbarItem(window);
 
+  // Initialize specific apps after window is created
+  setTimeout(() => {
+    if(app === 'file-explorer') {
+      explorerNavigate(explorerCurrentPath, false);
+    } else if(app === 'recycle-bin') {
+      recycleBinRefresh();
+    } else if(app === 'cmd') {
+      const prompt = window.querySelector('#cmd-prompt');
+      if(prompt) prompt.textContent = cmdCurrentPath + '>';
+    }
+  }, 100);
+
   return window;
 }
 
@@ -885,22 +897,52 @@ function calcMemoryClear(){
 // Notepad functions
 function saveNotepad(){
   const text = document.querySelector('.notepad-text');
-  if(text){
-    localStorage.setItem('notepad-content', text.value);
-    alert('Saved to browser storage!');
+  if(!text) return;
+
+  // Check if file is already loaded
+  if(text.dataset.filepath && text.dataset.filename){
+    // Save to existing file
+    if(vfs.writeFile(text.dataset.filepath, text.dataset.filename, text.value)){
+      showNotification('Notepad', `Saved: ${text.dataset.filename}`);
+    } else {
+      alert('Failed to save file.');
+    }
+  } else {
+    // Save As - create new file
+    const filename = prompt('Enter file name (with .txt extension):', 'Untitled.txt');
+    if(!filename) return;
+
+    const path = prompt('Enter path (e.g., C:\\My Documents):', 'C:\\My Documents');
+    if(!path) return;
+
+    if(vfs.createFile(path, filename, text.value)){
+      text.dataset.filepath = path;
+      text.dataset.filename = filename;
+      showNotification('Notepad', `Saved: ${filename}`);
+    } else {
+      alert('Failed to save file. Path may not exist or file already exists.');
+    }
   }
 }
 
 function loadNotepad(){
   const text = document.querySelector('.notepad-text');
-  if(text){
-    const saved = localStorage.getItem('notepad-content');
-    if(saved){
-      text.value = saved;
-      alert('Loaded from storage!');
-    }else{
-      alert('No saved content found.');
-    }
+  if(!text) return;
+
+  const path = prompt('Enter path (e.g., C:\\My Documents):', 'C:\\My Documents');
+  if(!path) return;
+
+  const filename = prompt('Enter file name:');
+  if(!filename) return;
+
+  const file = vfs.readFile(path, filename);
+  if(file){
+    text.value = file.content;
+    text.dataset.filepath = path;
+    text.dataset.filename = filename;
+    showNotification('Notepad', `Loaded: ${filename}`);
+  } else {
+    alert('File not found.');
   }
 }
 
@@ -2108,7 +2150,7 @@ window.addEventListener('DOMContentLoaded', function () {
 // Command Prompt functions
 let cmdHistory = [];
 let cmdHistoryIndex = 0;
-let cmdCurrentPath = 'C:\\Users';
+let cmdCurrentPath = 'C:\\My Documents';
 
 function executeCommand(){
   const input = document.getElementById('cmd-input');
@@ -2125,20 +2167,107 @@ function executeCommand(){
 
   output.innerHTML += `<div>${prompt.textContent} ${command}</div>`;
 
-  const cmd = command.toLowerCase().split(' ')[0];
-  const args = command.split(' ').slice(1).join(' ');
+  const parts = command.split(' ');
+  const cmd = parts[0].toLowerCase();
+  const args = parts.slice(1);
 
   let result = '';
   switch(cmd){
     case 'help':
-      result = 'Available commands:<br>help - Show this help<br>dir - List directory contents<br>cd - Change directory<br>cls - Clear screen<br>date - Show current date<br>time - Show current time<br>ver - Show system version<br>color - Change color scheme<br>echo - Display message<br>calc - Open calculator<br>notepad - Open notepad<br>exit - Close window';
+      result = 'Available commands:<br>help - Show this help<br>dir - List directory contents<br>cd [path] - Change directory<br>mkdir [name] - Create directory<br>rmdir [name] - Remove directory<br>type [file] - Display file contents<br>del [file] - Delete file<br>copy [src] [dst] - Copy file<br>move [src] [dst] - Move file<br>rename [old] [new] - Rename file<br>cls - Clear screen<br>date - Show current date<br>time - Show current time<br>ver - Show system version<br>echo [msg] - Display message<br>calc - Open calculator<br>notepad - Open notepad<br>explorer - Open file explorer<br>exit - Close window';
       break;
     case 'dir':
-      result = 'Directory of ' + cmdCurrentPath + '<br><br>&lt;DIR&gt;  Desktop<br>&lt;DIR&gt;  Documents<br>&lt;DIR&gt;  Downloads<br>&lt;DIR&gt;  Pictures<br>&lt;DIR&gt;  Music<br>     3 Dir(s)';
+      const items = vfs.listDirectory(cmdCurrentPath);
+      if(items){
+        result = `Directory of ${cmdCurrentPath}<br><br>`;
+        let fileCount = 0, dirCount = 0;
+        Object.keys(items).forEach(name => {
+          const item = items[name];
+          if(item.type === 'folder'){
+            result += `&lt;DIR&gt;        ${name}<br>`;
+            dirCount++;
+          } else {
+            const size = item.content ? item.content.length : 0;
+            result += `              ${size.toString().padStart(8)} ${name}<br>`;
+            fileCount++;
+          }
+        });
+        result += `<br>     ${dirCount} Dir(s)   ${fileCount} File(s)`;
+      } else {
+        result = 'Directory not found';
+      }
       break;
     case 'cd':
-      if(args) cmdCurrentPath = args.startsWith('C:') ? args : cmdCurrentPath + '\\' + args;
-      prompt.textContent = cmdCurrentPath + '>';
+      if(args.length === 0){
+        result = cmdCurrentPath;
+      } else {
+        let newPath = args[0];
+        if(!newPath.startsWith('C:')){
+          newPath = cmdCurrentPath === 'C:\\' ? 'C:\\' + newPath : cmdCurrentPath + '\\' + newPath;
+        }
+        if(vfs.navigatePath(newPath)){
+          cmdCurrentPath = newPath;
+          prompt.textContent = cmdCurrentPath + '>';
+        } else {
+          result = 'The system cannot find the path specified.';
+        }
+      }
+      break;
+    case 'mkdir':
+      if(args.length === 0){
+        result = 'The syntax of the command is incorrect.';
+      } else {
+        if(vfs.createFolder(cmdCurrentPath, args[0])){
+          result = `Created directory: ${args[0]}`;
+        } else {
+          result = 'Failed to create directory. It may already exist.';
+        }
+      }
+      break;
+    case 'rmdir':
+      if(args.length === 0){
+        result = 'The syntax of the command is incorrect.';
+      } else {
+        if(vfs.deleteItem(cmdCurrentPath, args[0])){
+          result = `Deleted directory: ${args[0]}`;
+        } else {
+          result = 'Failed to delete directory.';
+        }
+      }
+      break;
+    case 'type':
+      if(args.length === 0){
+        result = 'The syntax of the command is incorrect.';
+      } else {
+        const file = vfs.readFile(cmdCurrentPath, args[0]);
+        if(file){
+          result = file.content.replace(/\n/g, '<br>');
+        } else {
+          result = 'The system cannot find the file specified.';
+        }
+      }
+      break;
+    case 'del':
+      if(args.length === 0){
+        result = 'The syntax of the command is incorrect.';
+      } else {
+        if(vfs.deleteItem(cmdCurrentPath, args[0])){
+          result = `Deleted: ${args[0]}`;
+        } else {
+          result = 'The system cannot find the file specified.';
+        }
+      }
+      break;
+    case 'rename':
+      if(args.length < 2){
+        result = 'The syntax of the command is incorrect.';
+      } else {
+        if(vfs.renameItem(cmdCurrentPath, args[0], args[1])){
+          result = `Renamed ${args[0]} to ${args[1]}`;
+        } else {
+          result = 'Failed to rename. File may not exist or new name already exists.';
+        }
+      }
       break;
     case 'cls':
       output.innerHTML = '';
@@ -2150,10 +2279,10 @@ function executeCommand(){
       result = new Date().toLocaleTimeString();
       break;
     case 'ver':
-      result = 'Microsoft Windows XP [Version 5.1.2600] (Simulator)';
+      result = 'Microsoft Windows XP [Version 5.1.2600] (Simulator with Virtual File System)';
       break;
     case 'echo':
-      result = args;
+      result = args.join(' ');
       break;
     case 'calc':
       createWindow('calculator', 250, 400);
@@ -2163,12 +2292,12 @@ function executeCommand(){
       createWindow('notepad');
       result = 'Opening Notepad...';
       break;
+    case 'explorer':
+      createWindow('file-explorer');
+      result = 'Opening File Explorer...';
+      break;
     case 'exit':
       if(activeWindow) activeWindow.remove();
-      break;
-    case 'color':
-      result = 'Color changed (demo)';
-      playClickSound();
       break;
     default:
       result = `'${command}' is not recognized as an internal or external command.<br>Type 'help' for available commands.`;
@@ -2181,28 +2310,33 @@ function executeCommand(){
 }
 
 // File Explorer functions
-let explorerHistory = [];
-let explorerHistoryIndex = -1;
-let explorerCurrentPath = 'Desktop';
+let explorerHistory = ['C:\\My Documents'];
+let explorerHistoryIndex = 0;
+let explorerCurrentPath = 'C:\\My Documents';
 
-function explorerNavigate(folder){
-  explorerHistory.push(folder);
-  explorerHistoryIndex = explorerHistory.length - 1;
-  explorerCurrentPath = folder;
-
+function explorerNavigate(path, addToHistory = true){
   const pathInput = document.getElementById('explorer-path');
   const content = document.getElementById('explorer-content');
 
-  if(pathInput) pathInput.value = 'C:\\' + folder;
   if(!content) return;
 
-  const files = {
-    'Desktop': ['My Computer.lnk', 'Recycle Bin.lnk', 'Internet Explorer.lnk', 'Document.txt'],
-    'My Documents': ['Resume.doc', 'Letter.doc', 'Notes.txt', 'Photo.jpg'],
-    'My Pictures': ['Vacation.jpg', 'Family.jpg', 'Screenshot.png'],
-    'My Music': ['Song1.mp3', 'Song2.mp3', 'Album'],
-    'Program Files': ['Internet Explorer', 'Windows Media Player', 'Common Files']
-  };
+  // Add to history
+  if(addToHistory){
+    explorerHistory = explorerHistory.slice(0, explorerHistoryIndex + 1);
+    explorerHistory.push(path);
+    explorerHistoryIndex = explorerHistory.length - 1;
+  }
+
+  explorerCurrentPath = path;
+  if(pathInput) pathInput.value = path;
+
+  // Get directory contents from VFS
+  const items = vfs.listDirectory(path);
+
+  if(!items){
+    content.innerHTML = '<div style="color:red;padding:20px;">Directory not found</div>';
+    return;
+  }
 
   const icons = {
     '.txt': 'https://cdn-icons-png.flaticon.com/512/3767/3767084.png',
@@ -2210,19 +2344,39 @@ function explorerNavigate(folder){
     '.jpg': 'https://cdn-icons-png.flaticon.com/512/3342/3342137.png',
     '.png': 'https://cdn-icons-png.flaticon.com/512/3342/3342137.png',
     '.mp3': 'https://cdn-icons-png.flaticon.com/512/2965/2965307.png',
-    '.lnk': 'https://cdn-icons-png.flaticon.com/512/3389/3389081.png',
-    'folder': 'https://cdn-icons-png.flaticon.com/512/148/148947.png'
+    'folder': 'https://cdn-icons-png.flaticon.com/512/148/148947.png',
+    'file': 'https://cdn-icons-png.flaticon.com/512/3767/3767084.png'
   };
 
   let html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,100px);gap:20px;">';
-  (files[folder] || []).forEach(file => {
-    const ext = file.includes('.') ? file.substring(file.lastIndexOf('.')) : 'folder';
-    const icon = icons[ext] || icons['folder'];
-    html += `<div style="text-align:center;cursor:pointer;" onclick="playClickSound()">
+
+  Object.keys(items).forEach(name => {
+    const item = items[name];
+    let icon;
+
+    if(item.type === 'folder'){
+      icon = icons['folder'];
+    } else {
+      const ext = name.includes('.') ? name.substring(name.lastIndexOf('.')) : '';
+      icon = icons[ext] || icons['file'];
+    }
+
+    const onclick = item.type === 'folder'
+      ? `explorerNavigate('${path}\\\\${name}')`
+      : `explorerOpenFile('${name}')`;
+
+    html += `<div style="text-align:center;cursor:pointer;position:relative;"
+             ondblclick="${onclick}"
+             oncontextmenu="explorerContextMenu(event, '${name}', '${item.type}'); return false;">
       <img src="${icon}" style="width:48px;height:48px;"><br>
-      <span style="font-size:11px;">${file}</span>
+      <span style="font-size:11px;word-break:break-all;">${name}</span>
     </div>`;
   });
+
+  if(Object.keys(items).length === 0){
+    html += '<div style="color:#999;padding:20px;">This folder is empty</div>';
+  }
+
   html += '</div>';
   content.innerHTML = html;
   playClickSound();
@@ -2231,23 +2385,210 @@ function explorerNavigate(folder){
 function explorerBack(){
   if(explorerHistoryIndex > 0){
     explorerHistoryIndex--;
-    explorerNavigate(explorerHistory[explorerHistoryIndex]);
+    explorerNavigate(explorerHistory[explorerHistoryIndex], false);
   }
 }
 
 function explorerForward(){
   if(explorerHistoryIndex < explorerHistory.length - 1){
     explorerHistoryIndex++;
-    explorerNavigate(explorerHistory[explorerHistoryIndex]);
+    explorerNavigate(explorerHistory[explorerHistoryIndex], false);
   }
 }
 
 function explorerUp(){
-  explorerNavigate('Desktop');
+  const current = explorerCurrentPath;
+  if(current === 'C:' || current === 'C:\\') return;
+
+  const lastSlash = current.lastIndexOf('\\');
+  const parent = lastSlash > 2 ? current.substring(0, lastSlash) : 'C:\\';
+  explorerNavigate(parent);
 }
 
 function explorerRefresh(){
-  explorerNavigate(explorerCurrentPath);
+  explorerNavigate(explorerCurrentPath, false);
+}
+
+function explorerNewFile(){
+  const filename = prompt('Enter file name:');
+  if(!filename) return;
+
+  if(vfs.createFile(explorerCurrentPath, filename, '')){
+    showNotification('File Explorer', `Created file: ${filename}`);
+    explorerRefresh();
+  } else {
+    alert('Failed to create file. File may already exist.');
+  }
+}
+
+function explorerNewFolder(){
+  const foldername = prompt('Enter folder name:');
+  if(!foldername) return;
+
+  if(vfs.createFolder(explorerCurrentPath, foldername)){
+    showNotification('File Explorer', `Created folder: ${foldername}`);
+    explorerRefresh();
+  } else {
+    alert('Failed to create folder. Folder may already exist.');
+  }
+}
+
+function explorerOpenFile(filename){
+  const file = vfs.readFile(explorerCurrentPath, filename);
+  if(!file) return;
+
+  // Determine how to open based on file type
+  if(filename.endsWith('.txt') || !filename.includes('.')){
+    // Open in Notepad
+    const win = createWindow('notepad');
+    setTimeout(() => {
+      const textarea = win.querySelector('.notepad-text');
+      if(textarea){
+        textarea.value = file.content;
+        textarea.dataset.filepath = explorerCurrentPath;
+        textarea.dataset.filename = filename;
+      }
+    }, 100);
+  } else if(filename.match(/\.(jpg|jpeg|png|gif)$/i)){
+    // Open in Photo Viewer
+    const win = createWindow('photo-viewer');
+    setTimeout(() => {
+      const container = win.querySelector('#photo-container');
+      if(container && file.content){
+        container.innerHTML = `<img src="${file.content}" style="max-width:100%;max-height:100%;">`;
+      }
+    }, 100);
+  } else {
+    alert('File type not supported for viewing');
+  }
+}
+
+let explorerContextItem = null;
+let explorerContextType = null;
+
+function explorerContextMenu(e, itemname, itemtype){
+  e.preventDefault();
+
+  explorerContextItem = itemname;
+  explorerContextType = itemtype;
+
+  // Remove existing context menu
+  const existing = document.getElementById('explorer-context-menu');
+  if(existing) existing.remove();
+
+  // Create context menu
+  const menu = document.createElement('div');
+  menu.id = 'explorer-context-menu';
+  menu.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;background:#f0f0f0;border:1px solid #999;z-index:10000;min-width:150px;box-shadow:2px 2px 5px rgba(0,0,0,0.3);`;
+
+  const items = [
+    { label: '📂 Open', action: () => itemtype === 'folder' ? explorerNavigate(`${explorerCurrentPath}\\${itemname}`) : explorerOpenFile(itemname) },
+    { label: '✏️ Rename', action: () => explorerRenameItem(itemname) },
+    { label: '📋 Copy', action: () => alert('Copy functionality coming soon') },
+    { label: '🗑️ Delete', action: () => explorerDeleteItem(itemname) }
+  ];
+
+  items.forEach(item => {
+    const div = document.createElement('div');
+    div.textContent = item.label;
+    div.style.cssText = 'padding:8px 15px;cursor:pointer;';
+    div.onmouseover = () => div.style.background = '#0a246a';
+    div.onmouseout = () => div.style.background = 'transparent';
+    div.onmouseover = () => { div.style.background = '#0a246a'; div.style.color = '#fff'; };
+    div.onmouseout = () => { div.style.background = 'transparent'; div.style.color = '#000'; };
+    div.onclick = () => {
+      item.action();
+      menu.remove();
+    };
+    menu.appendChild(div);
+  });
+
+  document.body.appendChild(menu);
+
+  // Close menu on outside click
+  setTimeout(() => {
+    document.addEventListener('click', function closeMenu(){
+      menu.remove();
+      document.removeEventListener('click', closeMenu);
+    });
+  }, 10);
+}
+
+function explorerRenameItem(itemname){
+  const newname = prompt(`Rename "${itemname}" to:`, itemname);
+  if(!newname || newname === itemname) return;
+
+  if(vfs.renameItem(explorerCurrentPath, itemname, newname)){
+    showNotification('File Explorer', `Renamed to: ${newname}`);
+    explorerRefresh();
+  } else {
+    alert('Failed to rename. New name may already exist.');
+  }
+}
+
+function explorerDeleteItem(itemname){
+  if(!confirm(`Delete "${itemname}"?`)) return;
+
+  if(vfs.deleteItem(explorerCurrentPath, itemname)){
+    showNotification('File Explorer', `Moved to Recycle Bin: ${itemname}`);
+    explorerRefresh();
+  } else {
+    alert('Failed to delete item.');
+  }
+}
+
+// Recycle Bin functions
+function recycleBinRefresh(){
+  const content = document.getElementById('recycle-content');
+  if(!content) return;
+
+  const items = vfs.getRecycleBinItems();
+
+  if(items.length === 0){
+    content.innerHTML = '<div style="text-align:center;color:#999;padding:40px;">Recycle Bin is empty</div>';
+    return;
+  }
+
+  const icons = {
+    'folder': 'https://cdn-icons-png.flaticon.com/512/148/148947.png',
+    'file': 'https://cdn-icons-png.flaticon.com/512/3767/3767084.png'
+  };
+
+  let html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,100px);gap:20px;">';
+
+  items.forEach((recycled, index) => {
+    const icon = recycled.item.type === 'folder' ? icons['folder'] : icons['file'];
+    const date = new Date(recycled.deletedDate).toLocaleString();
+
+    html += `<div style="text-align:center;cursor:pointer;position:relative;"
+             ondblclick="recycleBinRestore(${index})"
+             title="Deleted: ${date}">
+      <img src="${icon}" style="width:48px;height:48px;opacity:0.7;"><br>
+      <span style="font-size:11px;word-break:break-all;">${recycled.name}</span>
+      <div style="font-size:9px;color:#999;">From: ${recycled.path}</div>
+    </div>`;
+  });
+
+  html += '</div>';
+  content.innerHTML = html;
+}
+
+function recycleBinEmpty(){
+  if(!confirm('Are you sure you want to permanently delete all items in the Recycle Bin?')) return;
+
+  vfs.emptyRecycleBin();
+  showNotification('Recycle Bin', 'Recycle Bin has been emptied');
+  recycleBinRefresh();
+}
+
+function recycleBinRestore(index){
+  if(vfs.restoreFromRecycleBin(index)){
+    const items = vfs.getRecycleBinItems();
+    showNotification('Recycle Bin', 'Item restored successfully');
+    recycleBinRefresh();
+  } else {
+    alert('Failed to restore item. Original location may no longer exist.');
+  }
 }
 
 // System Properties functions
@@ -2788,6 +3129,254 @@ document.head.appendChild(notifStyle);
 setTimeout(() => {
   showNotification('ברוכים הבאים ל-Windows XP!', 'סימולטור משופר עם אפליקציות ומשחקים חדשים');
 }, 1000);
+
+// ========== VIRTUAL FILE SYSTEM ==========
+class VirtualFileSystem {
+  constructor() {
+    this.loadFromStorage();
+  }
+
+  loadFromStorage() {
+    const stored = localStorage.getItem('xp-filesystem');
+    if (stored) {
+      this.root = JSON.parse(stored);
+    } else {
+      this.initializeDefaultStructure();
+    }
+  }
+
+  saveToStorage() {
+    localStorage.setItem('xp-filesystem', JSON.stringify(this.root));
+  }
+
+  initializeDefaultStructure() {
+    this.root = {
+      name: 'C:',
+      type: 'drive',
+      children: {
+        'Desktop': { type: 'folder', children: {} },
+        'My Documents': {
+          type: 'folder',
+          children: {
+            'Welcome.txt': {
+              type: 'file',
+              content: 'Welcome to Windows XP Virtual File System!\nYou can now create, edit, and manage real files.',
+              created: Date.now(),
+              modified: Date.now()
+            },
+            'Resume.txt': {
+              type: 'file',
+              content: 'My Resume\n\nName: User\nEmail: user@windowsxp.com',
+              created: Date.now(),
+              modified: Date.now()
+            }
+          }
+        },
+        'My Pictures': {
+          type: 'folder',
+          children: {
+            'sample.png': {
+              type: 'file',
+              fileType: 'image',
+              content: 'https://picsum.photos/400/300',
+              created: Date.now(),
+              modified: Date.now()
+            }
+          }
+        },
+        'My Music': { type: 'folder', children: {} },
+        'Program Files': {
+          type: 'folder',
+          children: {
+            'Windows': { type: 'folder', children: {} },
+            'Internet Explorer': { type: 'folder', children: {} }
+          }
+        }
+      }
+    };
+
+    // Initialize Recycle Bin separately
+    const recycleData = localStorage.getItem('xp-recycle-bin');
+    if (!recycleData) {
+      localStorage.setItem('xp-recycle-bin', JSON.stringify([]));
+    }
+
+    this.saveToStorage();
+  }
+
+  navigatePath(path) {
+    if (path === 'C:' || path === 'C:\\') return this.root;
+
+    const parts = path.replace(/^C:\\?/, '').split('\\').filter(p => p);
+    let current = this.root;
+
+    for (const part of parts) {
+      if (!current.children || !current.children[part]) {
+        return null;
+      }
+      current = current.children[part];
+    }
+
+    return current;
+  }
+
+  listDirectory(path) {
+    const dir = this.navigatePath(path);
+    if (!dir || dir.type !== 'folder' && dir.type !== 'drive') return null;
+    return dir.children || {};
+  }
+
+  createFile(path, filename, content = '', fileType = 'text') {
+    const dir = this.navigatePath(path);
+    if (!dir || (dir.type !== 'folder' && dir.type !== 'drive')) return false;
+
+    if (!dir.children) dir.children = {};
+
+    dir.children[filename] = {
+      type: 'file',
+      fileType: fileType,
+      content: content,
+      created: Date.now(),
+      modified: Date.now()
+    };
+
+    this.saveToStorage();
+    return true;
+  }
+
+  createFolder(path, foldername) {
+    const dir = this.navigatePath(path);
+    if (!dir || (dir.type !== 'folder' && dir.type !== 'drive')) return false;
+
+    if (!dir.children) dir.children = {};
+
+    if (dir.children[foldername]) return false; // Already exists
+
+    dir.children[foldername] = {
+      type: 'folder',
+      children: {},
+      created: Date.now(),
+      modified: Date.now()
+    };
+
+    this.saveToStorage();
+    return true;
+  }
+
+  readFile(path, filename) {
+    const dir = this.navigatePath(path);
+    if (!dir || !dir.children || !dir.children[filename]) return null;
+
+    const file = dir.children[filename];
+    if (file.type !== 'file') return null;
+
+    return file;
+  }
+
+  writeFile(path, filename, content) {
+    const dir = this.navigatePath(path);
+    if (!dir || !dir.children || !dir.children[filename]) return false;
+
+    const file = dir.children[filename];
+    if (file.type !== 'file') return false;
+
+    file.content = content;
+    file.modified = Date.now();
+
+    this.saveToStorage();
+    return true;
+  }
+
+  deleteItem(path, itemname) {
+    const dir = this.navigatePath(path);
+    if (!dir || !dir.children || !dir.children[itemname]) return false;
+
+    // Move to recycle bin
+    const item = dir.children[itemname];
+    const recycleBin = JSON.parse(localStorage.getItem('xp-recycle-bin') || '[]');
+
+    recycleBin.push({
+      name: itemname,
+      path: path,
+      item: item,
+      deletedDate: Date.now()
+    });
+
+    localStorage.setItem('xp-recycle-bin', JSON.stringify(recycleBin));
+
+    delete dir.children[itemname];
+    this.saveToStorage();
+    return true;
+  }
+
+  renameItem(path, oldname, newname) {
+    const dir = this.navigatePath(path);
+    if (!dir || !dir.children || !dir.children[oldname]) return false;
+    if (dir.children[newname]) return false; // Name already exists
+
+    dir.children[newname] = dir.children[oldname];
+    delete dir.children[oldname];
+
+    this.saveToStorage();
+    return true;
+  }
+
+  copyItem(sourcePath, itemname, destPath) {
+    const sourceDir = this.navigatePath(sourcePath);
+    const destDir = this.navigatePath(destPath);
+
+    if (!sourceDir || !destDir || !sourceDir.children || !sourceDir.children[itemname]) return false;
+
+    if (!destDir.children) destDir.children = {};
+
+    // Deep clone the item
+    destDir.children[itemname] = JSON.parse(JSON.stringify(sourceDir.children[itemname]));
+
+    this.saveToStorage();
+    return true;
+  }
+
+  moveItem(sourcePath, itemname, destPath) {
+    if (this.copyItem(sourcePath, itemname, destPath)) {
+      const sourceDir = this.navigatePath(sourcePath);
+      delete sourceDir.children[itemname];
+      this.saveToStorage();
+      return true;
+    }
+    return false;
+  }
+
+  emptyRecycleBin() {
+    localStorage.setItem('xp-recycle-bin', JSON.stringify([]));
+    return true;
+  }
+
+  restoreFromRecycleBin(index) {
+    const recycleBin = JSON.parse(localStorage.getItem('xp-recycle-bin') || '[]');
+    if (index < 0 || index >= recycleBin.length) return false;
+
+    const recycled = recycleBin[index];
+    const dir = this.navigatePath(recycled.path);
+
+    if (!dir) return false;
+
+    if (!dir.children) dir.children = {};
+    dir.children[recycled.name] = recycled.item;
+
+    recycleBin.splice(index, 1);
+    localStorage.setItem('xp-recycle-bin', JSON.stringify(recycleBin));
+
+    this.saveToStorage();
+    return true;
+  }
+
+  getRecycleBinItems() {
+    return JSON.parse(localStorage.getItem('xp-recycle-bin') || '[]');
+  }
+}
+
+// Initialize the file system
+const vfs = new VirtualFileSystem();
 
 </script>
 </body></html>
