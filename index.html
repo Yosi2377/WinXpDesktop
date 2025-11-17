@@ -689,10 +689,15 @@ activeWindow = window;
       initSolitaire();
     } else if(app === 'tictactoe') {
       initTicTacToe();
+    } else if(app === 'snake') {
+      initSnake();
+    } else if(app === 'pong') {
+      initPong();
+    } else if(app === 'breakout') {
+      initBreakout();
     } else if(app === 'game-2048') {
       init2048();
     }
-    // Note: Snake, Pong, and Breakout don't need init - they start when user clicks Start button
   }, 100);
 
   return window;
@@ -1238,6 +1243,46 @@ function loadMedia(){
 
 // Snake Game functions
 let snakeGame = null;
+
+function initSnake(){
+  const canvas = document.getElementById('snake-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  // Draw initial empty grid
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Draw grid lines
+  ctx.strokeStyle = '#0f0';
+  ctx.globalAlpha = 0.1;
+  const gridSize = 20;
+  for(let i = 0; i < canvas.width; i += gridSize){
+    ctx.beginPath();
+    ctx.moveTo(i, 0);
+    ctx.lineTo(i, canvas.height);
+    ctx.stroke();
+  }
+  for(let i = 0; i < canvas.height; i += gridSize){
+    ctx.beginPath();
+    ctx.moveTo(0, i);
+    ctx.lineTo(canvas.width, i);
+    ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+
+  // Draw "Press Start" message
+  ctx.fillStyle = '#0f0';
+  ctx.font = '24px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('Press START to begin!', canvas.width / 2, canvas.height / 2);
+
+  // Load high score
+  const highScore = localStorage.getItem('snake-high') || 0;
+  document.getElementById('snake-high').textContent = highScore;
+  document.getElementById('snake-score').textContent = '0';
+}
+
 function startSnake(){
   const canvas = document.getElementById('snake-canvas');
   if(!canvas) return;
@@ -2939,6 +2984,46 @@ let pongGame = null;
 let pongScore1 = 0;
 let pongScore2 = 0;
 
+function initPong(){
+  const canvas = document.getElementById('pong-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const width = canvas.width;
+  const height = canvas.height;
+
+  // Draw initial court
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, width, height);
+
+  // Draw center line
+  ctx.strokeStyle = '#fff';
+  ctx.setLineDash([10, 5]);
+  ctx.beginPath();
+  ctx.moveTo(width / 2, 0);
+  ctx.lineTo(width / 2, height);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Draw paddles
+  const paddleHeight = 100;
+  const paddleWidth = 10;
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(5, height / 2 - paddleHeight / 2, paddleWidth, paddleHeight);
+  ctx.fillRect(width - paddleWidth - 5, height / 2 - paddleHeight / 2, paddleWidth, paddleHeight);
+
+  // Draw ball
+  ctx.fillRect(width / 2 - 5, height / 2 - 5, 10, 10);
+
+  // Draw "Press Start" message
+  ctx.font = '24px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('Press START to begin!', width / 2, 40);
+
+  // Reset scores
+  document.getElementById('pong-score1').textContent = '0';
+  document.getElementById('pong-score2').textContent = '0';
+}
+
 function startPong(){
   const canvas = document.getElementById('pong-canvas');
   if(!canvas) return;
@@ -3038,6 +3123,54 @@ let breakoutGame = null;
 let breakoutScore = 0;
 let breakoutLives = 3;
 let breakoutLevel = 1;
+
+function initBreakout(){
+  const canvas = document.getElementById('breakout-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const width = canvas.width;
+  const height = canvas.height;
+
+  // Draw initial screen
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, width, height);
+
+  // Draw bricks preview
+  const brickRows = 5;
+  const brickCols = 8;
+  const brickWidth = width / brickCols - 5;
+  const brickHeight = 20;
+  const colors = ['#f00', '#ff0', '#0f0', '#0ff', '#00f'];
+
+  for(let r = 0; r < brickRows; r++){
+    for(let c = 0; c < brickCols; c++){
+      ctx.fillStyle = colors[r];
+      const x = c * (brickWidth + 5);
+      const y = r * (brickHeight + 5) + 30;
+      ctx.fillRect(x, y, brickWidth, brickHeight);
+    }
+  }
+
+  // Draw paddle
+  const paddleWidth = 100;
+  const paddleHeight = 10;
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(width / 2 - paddleWidth / 2, height - 20, paddleWidth, paddleHeight);
+
+  // Draw ball
+  ctx.fillRect(width / 2 - 5, height - 35, 10, 10);
+
+  // Draw "Press Start" message
+  ctx.fillStyle = '#fff';
+  ctx.font = '24px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText('Press START to begin!', width / 2, height / 2);
+
+  // Reset scores
+  document.getElementById('breakout-score').textContent = '0';
+  document.getElementById('breakout-lives').textContent = '3';
+  document.getElementById('breakout-level').textContent = '1';
+}
 
 function startBreakout(){
   const canvas = document.getElementById('breakout-canvas');
